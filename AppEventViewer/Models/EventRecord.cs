@@ -9,18 +9,20 @@ namespace AppEventViewer.Models
 {
     public class EventRecord
     {
-        EventRecord(ManagementObject vmi) {
+        
+       public  EventRecord(ManagementObject vmi) {
             Category = vmi["Category"].ToString();
-            Category = vmi["ComputerName"].ToString();
-            Category = vmi["EventCode"].ToString();
-            Category = vmi["EventType"].ToString();
-            Category = vmi["Category"].ToString();
-            Category = vmi["Category"].ToString();
-            Category = vmi["Category"].ToString();
-            Category = vmi["Category"].ToString();
-            Category = vmi["Category"].ToString();
-            Category = vmi["Category"].ToString();
-            Category = vmi["Category"].ToString();
+            ComputerName = vmi["ComputerName"].ToString();
+            EventCode = vmi["EventCode"].ToString();
+            EventType = vmi["EventType"].ToString();
+            InsertionStrings = vmi["InsertionStrings"].ToString();
+            Logfile = vmi["Logfile"].ToString();
+            Message = vmi["Message"].ToString();
+            RecordNumber = vmi["RecordNumber"].ToString();
+            SourceName = vmi["SourceName"].ToString();
+            TimeGenerated = vmi["TimeGenerated"].ToString();
+            TimeWritten = vmi["TimeWritten"].ToString();
+            Type = vmi["Type"].ToString();
         
         }
         public string Category { get; set; }

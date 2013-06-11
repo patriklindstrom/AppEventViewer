@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Diagnostics;
 using System.Management;
+using AppEventViewer.Models;
 
 namespace AppEventViewer.Tests
 {
@@ -59,6 +60,7 @@ namespace AppEventViewer.Tests
             Debug.WriteLine("***** Start writing Properties *****"); 
             foreach (ManagementObject mo in mos.Get())
             {
+                var foo = new EventRecord(mo);
                 Debug.WriteLine("***** New Managment Object from Eventstore *****");
                // EventLogEntry eventLogRow = (EventLogEntry)mo;
                 foreach (PropertyData pd in mo.Properties)
