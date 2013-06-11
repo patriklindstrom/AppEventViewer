@@ -12,6 +12,8 @@ namespace AppEventViewer.Tests
         public const string LOGNAME = "EventTest";
         public const string TESTENTRY = "The " + LOGNAME + " was initilized.";
 
+
+
         [TestMethod]
         public void Write_And_Read_Event_From_Log()
         {
@@ -50,11 +52,15 @@ namespace AppEventViewer.Tests
                 String.Format("SELECT * FROM Win32_NTLogEvent WHERE Logfile = 'Application' AND TimeGenerated > '{0}'",
                               SomeDateTime);
             var mos = new ManagementObjectSearcher(wmiQuery);
+           // mos.
+            //EventLogEntryCollection eventLogEntryCollection = (EventLogEntryCollection)mos.Container; 
+
             object o;
             Debug.WriteLine("***** Start writing Properties *****"); 
             foreach (ManagementObject mo in mos.Get())
             {
-                Debug.WriteLine("***** New Managment Object from Eventstore *****"); 
+                Debug.WriteLine("***** New Managment Object from Eventstore *****");
+               // EventLogEntry eventLogRow = (EventLogEntry)mo;
                 foreach (PropertyData pd in mo.Properties)
                 {
                     o = mo[pd.Name];
