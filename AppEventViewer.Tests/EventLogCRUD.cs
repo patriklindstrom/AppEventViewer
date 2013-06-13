@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Diagnostics;
 using System.Management;
 using AppEventViewer.Models;
+using System.Collections.Generic;
 
 namespace AppEventViewer.Tests
 {
@@ -46,32 +47,38 @@ namespace AppEventViewer.Tests
         [TestMethod]
         public void Write_And_Read_Event_From_Log_With_WMI()
         {
-           Debug.WriteLine("Testing Wmi Method Write_And_Read_Event_From_Log_With_WMI(), yeah."); 
-            string SomeDateTime = "20130526000000.000000+000";
-            var anotherTime= DateTime.Now.AddMilliseconds(-500);
+            //Arrange
+           Debug.WriteLine("Testing Wmi Method Write_And_Read_Event_From_Log_With_WMI(), yeah.");
+           DateTime FromTime = DateTime.Now.AddDays(-1); 
+           // string SomeDateTime = "20130526000000.000000+000";
+           string strFromTime = String.Format("{0:yyyyMMddHHmmss}", FromTime) + ".000000+000";
             string wmiQuery =
                 String.Format("SELECT * FROM Win32_NTLogEvent WHERE Logfile = 'Application' AND TimeGenerated > '{0}'",
-                              SomeDateTime);
+                              strFromTime);
+            //Act
             var mos = new ManagementObjectSearcher(wmiQuery);
            // mos.
             //EventLogEntryCollection eventLogEntryCollection = (EventLogEntryCollection)mos.Container; 
-
             object o;
-            Debug.WriteLine("***** Start writing Properties *****"); 
+            Debug.WriteLine("***** Start writing Properties *****");
+            List<EventRecord> EventRecordList = new List<EventRecord>();
             foreach (ManagementObject mo in mos.Get())
             {
-                var foo = new EventRecord(mo);
+               EventRecordList.Add (new EventRecord(mo));
                 Debug.WriteLine("***** New Managment Object from Eventstore *****");
+                Debug.WriteLine(String.Format("{0}: {1}","Message", EventRecordList[EventRecordList.Count - 1].Message));
                // EventLogEntry eventLogRow = (EventLogEntry)mo;
-                foreach (PropertyData pd in mo.Properties)
-                {
-                    o = mo[pd.Name];
-                    if (o != null)
-                    {
-                        Debug.WriteLine(String.Format("{0}: {1}", pd.Name, mo[pd.Name].ToString()));
-                    }
-                }
+                //foreach (PropertyData pd in mo.Properties)
+                //{
+                //    o = mo[pd.Name];
+                //    if (o != null)
+                //    {
+                //        Debug.WriteLine(String.Format("{0}: {1}", pd.Name, mo[pd.Name].ToString()));
+                //    }
+                //}
             }
+            //Assert
+            Assert.IsTrue(EventRecordList.Count > 0, "There should be some events last day");
         }
     }
 }
