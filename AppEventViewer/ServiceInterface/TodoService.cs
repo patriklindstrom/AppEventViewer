@@ -3,7 +3,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using ServiceStack.ServiceInterface;
 
-namespace SocialBootstrapApi.ServiceInterface
+namespace AppEventViewer.ServiceInterface
 {
 	//REST Resource DTO
 	[DataContract]
@@ -45,47 +45,47 @@ namespace SocialBootstrapApi.ServiceInterface
 	}
 
 	/// <summary>
-	/// In-memory repository, so we can run the TODO app without any external dependencies
+	/// In-memory repository, so we can run the T0DO app without any external dependencies
 	/// Registered in Funq as a singleton, auto injected on every request
 	/// </summary>
 	public class TodoRepository
 	{
-		private readonly List<Todo> todos = new List<Todo>();
+		private readonly List<Todo> _todos = new List<Todo>();
 
 		public List<Todo> GetAll()
 		{
-			return todos;
+			return _todos;
 		}
 
 		public Todo GetById(long id)
 		{
-			return todos.FirstOrDefault(x => x.Id == id);
+			return _todos.FirstOrDefault(x => x.Id == id);
 		}
 
 		public Todo Store(Todo todo)
 		{
 			if (todo.Id == default(long))
 			{
-				todo.Id = todos.Count == 0 ? 1 : todos.Max(x => x.Id) + 1;
+				todo.Id = _todos.Count == 0 ? 1 : _todos.Max(x => x.Id) + 1;
 			}
 			else
 			{
-				for (var i = 0; i < todos.Count; i++)
+				for (var i = 0; i < _todos.Count; i++)
 				{
-					if (todos[i].Id != todo.Id) continue;
+					if (_todos[i].Id != todo.Id) continue;
 
-					todos[i] = todo;
+					_todos[i] = todo;
 					return todo;
 				}
 			}
 
-			todos.Add(todo);
+			_todos.Add(todo);
 			return todo;
 		}
 
 		public void DeleteById(long id)
 		{
-			todos.RemoveAll(x => x.Id == id);
+			_todos.RemoveAll(x => x.Id == id);
 		}
 	}
 }
