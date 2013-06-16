@@ -11,6 +11,10 @@ namespace AppEventViewer
     {
         public static void RegisterRoutes(RouteCollection routes)
         {
+            //Added these two lines because servicestack handle the api calls
+            routes.IgnoreRoute("api/{*pathInfo}");
+            routes.IgnoreRoute("{*favicon}", new { favicon = @"(.*/)?favicon.ico(/.*)?" }); //Prevent exceptions for favicon
+            // End servicestack change
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
