@@ -163,7 +163,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\EventRecord.cs" />
-    <Compile Include="Models\GetEventRecordListDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceInterface\EventService.cs" />
     <Compile Include="ServiceInterface\HelloService.cs" />

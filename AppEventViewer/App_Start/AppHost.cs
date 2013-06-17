@@ -3,6 +3,7 @@ using System.Linq;
 using System.Configuration;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using AppEventViewer.ServiceInterface;
 using ServiceStack.Configuration;
 using ServiceStack.CacheAccess;
 using ServiceStack.CacheAccess.Providers;
@@ -48,7 +49,9 @@ namespace AppEventViewer.App_Start
 			//Configure User Defined REST Paths
 			Routes
 			  .Add<Hello>("/hello")
-			  .Add<Hello>("/hello/{Name*}");
+			  .Add<Hello>("/hello/{Name*}")
+              .Add<Events>("/Events/")
+              .Add<Events>("/Events/{Lag*}");
 
 			//Uncomment to change the default ServiceStack configuration
 			//SetConfig(new EndpointHostConfig {
@@ -58,7 +61,12 @@ namespace AppEventViewer.App_Start
 			//ConfigureAuth(container);
 
 			//Register all your dependencies
-			container.Register(new TodoRepository());			
+            container.Register(new EventRepository());	
+			container.Register(new TodoRepository());
+            //Register a external dependency-free 
+            container.Register<ICacheClient>(new MemoryCacheClient());
+            //Configure an alt. distributed persistent cache that survives AppDomain restarts. e.g Redis
+            //container.Register<IRedisClientsManager>(c => new PooledRedisClientManager("localhost:6379"));
 
 			//Set MVC to use the same Funq IOC as ServiceStack
 			ControllerBuilder.Current.SetControllerFactory(new FunqControllerFactory(container));
