@@ -165,8 +165,6 @@
     <Compile Include="Models\EventRecord.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceInterface\EventService.cs" />
-    <Compile Include="ServiceInterface\HelloService.cs" />
-    <Compile Include="ServiceInterface\TodoService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\js\ss-validation.js" />

@@ -39,7 +39,7 @@ namespace AppEventViewer.App_Start
 		: AppHostBase
 	{		
 		public AppHost() //Tell ServiceStack the name and where to find your web services
-			: base("StarterTemplate ASP.NET Host", typeof(HelloService).Assembly) { }
+			: base("Events from windows server nodes", typeof(EventService).Assembly) { }
 
 		public override void Configure(Funq.Container container)
 		{

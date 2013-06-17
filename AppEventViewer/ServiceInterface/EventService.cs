@@ -44,7 +44,7 @@ namespace AppEventViewer.ServiceInterface
     public class EventService : Service
     {
         public EventRepository Repository { get; set; } //hopefully injected by IOC
-        public object Any(Events request)
+        public object Get(Events request)
         {
             return Repository.GetByTimeFilter(request.Lag);
         }
