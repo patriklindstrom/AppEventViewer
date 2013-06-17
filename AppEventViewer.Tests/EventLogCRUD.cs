@@ -45,7 +45,7 @@ namespace AppEventViewer.Tests
         }
 
         [TestMethod]
-        public void Write_And_Read_Event_From_Log_With_WMI()
+        public void Read_Event_From_Log_With_WMI()
         {
             //Arrange
            Debug.WriteLine("Testing Wmi Method Write_And_Read_Event_From_Log_With_WMI(), yeah.");
