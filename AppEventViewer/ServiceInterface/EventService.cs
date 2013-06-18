@@ -12,7 +12,7 @@ namespace AppEventViewer.ServiceInterface
 {
     public static class GlobalVar
     {
-
+        public const string SOURCE = "application";
         public const string DATE_FORMAT = "yyyyMMddHHmmss";
         public const string DATE_FORMAT_STR ="{0:yyyyMMddHHmmss}";
     }
@@ -78,7 +78,7 @@ public class EventRepository : IEventRepository
             string strFromTime = String.Format(GlobalVar.DATE_FORMAT_STR, fromTime) + ".000000+000";
           //  string strToTime = String.Format("{0:yyyyMMddHHmmss}", toTime) + ".000000+000";
             string wmiQuery =
-                String.Format("SELECT * FROM Win32_NTLogEvent WHERE Logfile = 'Application' AND TimeGenerated > '{0}'",strFromTime);
+                String.Format("SELECT * FROM Win32_NTLogEvent WHERE Logfile = '{0}' AND TimeGenerated > '{1}'",GlobalVar.SOURCE, strFromTime);
             var mos = new ManagementObjectSearcher(wmiQuery);
             object o;
             var eventRecordList = new List<EventRecord>();

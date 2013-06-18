@@ -1,4 +1,5 @@
 ﻿using System;
+using AppEventViewer.ServiceInterface;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Diagnostics;
 using System.Management;
@@ -10,10 +11,9 @@ namespace AppEventViewer.Tests
     [TestClass]
     public class EventLogCrud
     {
-        public const string SOURCE = "application";
+
         public const string LOGNAME = "EventTest";
         public const string TESTENTRY = "The " + LOGNAME + " was initilized.";
-
 
 
         [TestMethod]
@@ -21,7 +21,7 @@ namespace AppEventViewer.Tests
         {
             //Arrange
             //   EventLog.CreateEventSource(SOURCE, LOGNAME);
-            var testEventLog = new EventLog {Source = SOURCE, Log = SOURCE};
+            var testEventLog = new EventLog {Source = GlobalVar.SOURCE, Log = GlobalVar.SOURCE};
             var entryMessage = String.Empty;
             //Act
             testEventLog.WriteEntry(TESTENTRY, EventLogEntryType.Information);
@@ -51,10 +51,9 @@ namespace AppEventViewer.Tests
            Debug.WriteLine("Testing Wmi Method Write_And_Read_Event_From_Log_With_WMI(), yeah.");
            DateTime FromTime = DateTime.Now.AddDays(-1); 
            // string SomeDateTime = "20130526000000.000000+000";
-           string strFromTime = String.Format("{0:yyyyMMddHHmmss}", FromTime) + ".000000+000";
+           string strFromTime = String.Format(GlobalVar.DATE_FORMAT_STR, FromTime) + ".000000+000";
             string wmiQuery =
-                String.Format("SELECT * FROM Win32_NTLogEvent WHERE Logfile = 'Application' AND TimeGenerated > '{0}'",
-                              strFromTime);
+                  String.Format("SELECT * FROM Win32_NTLogEvent WHERE Logfile = '{0}' AND TimeGenerated > '{1}'", GlobalVar.SOURCE, strFromTime);
             //Act
             var mos = new ManagementObjectSearcher(wmiQuery);
            // mos.
