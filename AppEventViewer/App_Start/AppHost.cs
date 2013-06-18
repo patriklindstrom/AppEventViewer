@@ -61,7 +61,7 @@ namespace AppEventViewer.App_Start
 			//ConfigureAuth(container);
 
 			//Register all your dependencies
-            container.Register(new EventRepository());	
+            container.Register<IEventRepository>(new EventRepository());	
 			container.Register(new TodoRepository());
             //Register a external dependency-free 
             container.Register<ICacheClient>(new MemoryCacheClient());
