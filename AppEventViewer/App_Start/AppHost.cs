@@ -47,11 +47,11 @@ namespace AppEventViewer.App_Start
 			ServiceStack.Text.JsConfig.EmitCamelCaseNames = true;
 		
 			//Configure User Defined REST Paths
-			Routes
-			  .Add<Hello>("/hello")
-			  .Add<Hello>("/hello/{Name*}")
-              .Add<Events>("/Events/")
-              .Add<Events>("/Events/{Lag*}");
+            //Routes
+            //  .Add<Hello>("/hello")
+            //  .Add<Hello>("/hello/{Name*}")
+              //.Add<Events>("/Events/")
+              //.Add<Events>("/Events/{Lag*}");
 
 			//Uncomment to change the default ServiceStack configuration
 			//SetConfig(new EndpointHostConfig {
