@@ -15,15 +15,39 @@ namespace AppEventViewer.Tests
         {
             var eventRecordList = new List<EventRecord>();
             ManagementObject vmi=null;
-            var er1 = new EventRecord(vmi);
-            er1.Category = "3";
-            er1.ComputerName = "mycomputer\\Stuff";
-            er1.EventCode = "4";
+            var er1 = new EventRecord(vmi)
+                {
+                    Category = "0",
+                    ComputerName = "Herkules",
+                    EventCode = "2264",
+                    EventType = "2",
+                    InsertionStrings =
+                        @"C:\Users\Patrik\AppData\Local\Temp\iisexpress\IIS Temporary Compressed Files\Clr4IntegratedAppPoo",
+                    Logfile = "Application",
+                    Message =
+                        @"The directory specified for caching compressed content C:\Users\Patrik\AppData\Local\Temp\iisexpress\IIS Temporary Compressed Files\Clr4IntegratedAppPool is invalid. Static compression is being disabled.",
+                    RecordNumber = "460172",
+                    SourceName = "IIS Express",
+                    TimeGenerated = "20130619182551.000000-000",
+                    TimeWritten = "20130619182551.000000-000",
+                    Type = "Varning"
+                };
             eventRecordList.Add(er1);
-            var er2 = new EventRecord(vmi);
-            er2.Category = "4";
-            er2.ComputerName = "DiabloIIIComputer";
-            er2.EventCode = "-1";
+            var er2 = new EventRecord(vmi)
+                {
+                    Category = "0",
+                    ComputerName = "Herkules",
+                    EventCode = "0",
+                    EventType = "3",
+                    InsertionStrings = @"The EventTestWriter was initilized. Go DTD. Do not fail me",
+                    Logfile = "Application",
+                    Message = String.Empty,
+                    RecordNumber = "460171",
+                    SourceName = "application",
+                    TimeGenerated = "20130619182521.000000-000",
+                    TimeWritten = "20130619182521.000000-000",
+                    Type = "Information"
+                };
             eventRecordList.Add(er2);
             return eventRecordList;
         }
