@@ -59,7 +59,7 @@ namespace AppEventViewer.ServiceInterface
     /// </summary>
     public class EventRecordListResponse
     {
-        public List<EventRecord> EventRecords { get; set; }
+        public List<IEventRecord> EventRecords { get; set; }
     }
 
     //Implementation
@@ -84,12 +84,12 @@ namespace AppEventViewer.ServiceInterface
 
 public interface IEventRepository
 {
-    List<EventRecord> GetByTimeFilter(DateTime fromTime, DateTime toTime, int maxRows, int timeOutSec);
+    List<IEventRecord> GetByTimeFilter(DateTime fromTime, DateTime toTime, int maxRows, int timeOutSec);
 }
 
 public class EventRepository : IEventRepository
 {
-    public List<EventRecord> GetByTimeFilter(DateTime fromTime, DateTime toTime, int maxRows, int timeOutSec)
+    public List<IEventRecord> GetByTimeFilter(DateTime fromTime, DateTime toTime, int maxRows, int timeOutSec)
     {
         // DateTime fromTime = DateTime.Now.AddHours(-1*lag);
         string strFromTime = String.Format(GlobalVar.DATE_FORMAT_STR, fromTime) + ".000000+000";
@@ -100,6 +100,6 @@ public class EventRepository : IEventRepository
                 GlobalVar.SOURCE, strFromTime, strToTime);
         var mos = new ManagementObjectSearcher(wmiQuery);
         object o;
-        return (from ManagementObject mo in mos.Get() select new EventRecord(mo)).ToList();
+        return new List<IEventRecord>((from ManagementObject mo in mos.Get() select new EventRecord(mo)).ToList());
     }
 }
