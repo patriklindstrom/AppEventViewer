@@ -11,7 +11,7 @@ namespace AppEventViewer.Tests
 {
     public class TestEventRepository : IEventRepository
     {
-        public List<EventRecord> GetByTimeFilter(DateTime fromTime)
+        public List<EventRecord> GetByTimeFilter(DateTime fromTime, DateTime toTime, int maxRows, int timeOutSec)
         {
             var eventRecordList = new List<EventRecord>();
             ManagementObject vmi=null;
@@ -48,7 +48,7 @@ namespace AppEventViewer.Tests
                 //Set up the Service I want to Test
                 var eventService = new EventService { Repository = TestContainer.Resolve<IEventRepository>() };
                 string testFromDate = DateTime.Now.AddHours(-1).ToString(GlobalVar.DATE_FORMAT);
-                var testEvents = new Events {from = testFromDate};
+                var testEvents = new Events {From = testFromDate};
                 //Act
                 // Call on the Service
                 var response = eventService.Get(testEvents);
