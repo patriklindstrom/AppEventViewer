@@ -28,28 +28,30 @@ namespace AppEventViewer.Tests
             return eventRecordList;
         }
 
+
         [TestClass]
         public class ServiceTest
         {
+            static Funq.Container TestContainer= new Container();
 
+            // Use ClassInitialize to run code before running the first test in the class
+            [ClassInitialize()]
+            public static void MyClassInitialize(TestContext testContext) {
+                //Arrange
+                //Set up Funq IOS for Dependency injection
+                TestContainer.Register<IEventRepository>(new TestEventRepository());               
+            }
             [TestMethod]
             public void Test_Get_EventService_Returns_Response()
             {
                 //Arrange
-                //Set up Funq IOS for Dependency injection
-                var container = new Container();
-                container.Register<IEventRepository>(new TestEventRepository());    
                 //Set up the Service I want to Test
-                var eventService = new EventService {Repository = container.Resolve<IEventRepository>()};
-                const string format = GlobalVar.DATE_FORMAT;
-                string testFromDate = DateTime.Now.AddHours(-1).ToString(format);
+                var eventService = new EventService { Repository = TestContainer.Resolve<IEventRepository>() };
+                string testFromDate = DateTime.Now.AddHours(-1).ToString(GlobalVar.DATE_FORMAT);
                 var testEvents = new Events {from = testFromDate};
-
                 //Act
                 // Call on the Service
                 var response = eventService.Get(testEvents);
- 
-
                 //Assert
                 Assert.IsNotNull(response, "Response from Eventservice is null");
                 Assert.IsInstanceOfType(response,typeof(List<EventRecord>), "Returns the wrong list type");

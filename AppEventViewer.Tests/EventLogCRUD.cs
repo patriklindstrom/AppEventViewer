@@ -11,9 +11,9 @@ namespace AppEventViewer.Tests
     [TestClass]
     public class EventLogCrud
     {
-
-        public const string LOGNAME = "EventTest";
-        public const string TESTENTRY = "The " + LOGNAME + " was initilized.";
+        public const string SOURCE = "EventTestWriter";
+        public const string LOGNAME = "application";
+        public const string TESTENTRY = "The " + SOURCE + " was initilized. Go DTD. Do not fail me";
 
 
         [TestMethod]
@@ -21,27 +21,34 @@ namespace AppEventViewer.Tests
         {
             //Arrange
             //   EventLog.CreateEventSource(SOURCE, LOGNAME);
-            var testEventLog = new EventLog {Source = GlobalVar.SOURCE, Log = GlobalVar.SOURCE};
-            var entryMessage = String.Empty;
+            var testEventLog = new EventLog { Source = LOGNAME, Log = LOGNAME };
+            var entryMessageToCheck = String.Empty;
             //Act
             testEventLog.WriteEntry(TESTENTRY, EventLogEntryType.Information);
             var testEventRows = testEventLog.Entries;
-
+            var stopdt = DateTime.Now.AddMilliseconds(-500);
+            var maxIter = 1000;
+            int i = 0;
             foreach (EventLogEntry entry in testEventRows)
             {
-                if (entry.TimeWritten > DateTime.Now.AddMilliseconds(-500)) break; //only 
-                if (entry.ReplacementStrings[0] == null) continue;
-                if (entry.ReplacementStrings[0].Equals(TESTENTRY))
+                i++;
+                if (i>maxIter)
                 {
-                    entryMessage = entry.ReplacementStrings[0];
-
-                    break;
+                    break;                    
                 }
+                if (entry.TimeWritten > stopdt) break; //only 
+
+                    if (entry.ReplacementStrings[0] == null) continue;
+                    if (entry.ReplacementStrings[0].Equals(TESTENTRY))
+                    {
+                        entryMessageToCheck = entry.ReplacementStrings[0];
+                        break;
+                    }           
             }
 
             //Assert
 
-            Assert.IsTrue(entryMessage.Equals(TESTENTRY));
+            Assert.IsTrue(entryMessageToCheck.Equals(TESTENTRY));
         }
 
         [TestMethod]
