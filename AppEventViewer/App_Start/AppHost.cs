@@ -63,6 +63,7 @@ namespace AppEventViewer.App_Start
 			//Register all your dependencies
             container.Register<IEventRepository>(new EventRepository());	
 			container.Register(new TodoRepository());
+            container.Register<IAppConfig>(new AppConfig());
             //Register a external dependency-free 
             container.Register<ICacheClient>(new MemoryCacheClient());
             //Configure an alt. distributed persistent cache that survives AppDomain restarts. e.g Redis

@@ -10,15 +10,7 @@ using ServiceStack.ServiceInterface;
 
 namespace AppEventViewer.ServiceInterface
 {
-    public static class GlobalVar
-    {
-        public const string SOURCE = "application";
-        public const string DATE_FORMAT = "yyyyMMddHHmmss";
-        public const string DATE_FORMAT_STR = "{0:yyyyMMddHHmmss}";
-        public const int MAXGETROWS = 5000;
-        public const int TIMEOUT_S = 2;
-    }
-
+  
     //Define Request and Response DTOs
 
     // TODO: fix check that from is less then to
@@ -71,13 +63,13 @@ namespace AppEventViewer.ServiceInterface
         public IEventRepository Repository { get; set; } // injected by Funq IOC in AppHost config                   
         public object Get(Events request)
         {
-            string fromTime = request.From ?? DateTime.Now.AddHours(-1).ToString(GlobalVar.DATE_FORMAT);
-            DateTime outFromTime = DateTime.ParseExact(fromTime, GlobalVar.DATE_FORMAT,
+            string fromTime = request.From ?? DateTime.Now.AddHours(-1).ToString(Global_Const.DATE_FORMAT);
+            DateTime outFromTime = DateTime.ParseExact(fromTime, Global_Const.DATE_FORMAT,
                                                        System.Globalization.CultureInfo.InvariantCulture);
-            string toTime = request.To ?? DateTime.Now.ToString(GlobalVar.DATE_FORMAT);
-            DateTime outToTime = DateTime.ParseExact(toTime, GlobalVar.DATE_FORMAT,
+            string toTime = request.To ?? DateTime.Now.ToString(Global_Const.DATE_FORMAT);
+            DateTime outToTime = DateTime.ParseExact(toTime, Global_Const.DATE_FORMAT,
                                                      System.Globalization.CultureInfo.InvariantCulture);
-            return Repository.GetByTimeFilter(outFromTime, outToTime, GlobalVar.MAXGETROWS, GlobalVar.TIMEOUT_S);
+            return Repository.GetByTimeFilter(outFromTime, outToTime, Global_Const.MAXGETROWS, Global_Const.TIMEOUT_S);
         }
     }
 }
@@ -92,12 +84,12 @@ public class EventRepository : IEventRepository
     public List<IEventRecord> GetByTimeFilter(DateTime fromTime, DateTime toTime, int maxRows, int timeOutSec)
     {
         // DateTime fromTime = DateTime.Now.AddHours(-1*lag);
-        string strFromTime = String.Format(GlobalVar.DATE_FORMAT_STR, fromTime) + ".000000+000";
+        string strFromTime = String.Format(AppEventViewer.Global_Const.DATE_FORMAT_STR, fromTime) + ".000000+000";
         string strToTime = String.Format("{0:yyyyMMddHHmmss}", toTime) + ".000000+000";
         string wmiQuery =
             String.Format(
                 "SELECT * FROM Win32_NTLogEvent WHERE Logfile = '{0}' AND TimeGenerated >= '{1}' AND TimeGenerated <= '{2}' ",
-                GlobalVar.SOURCE, strFromTime, strToTime);
+                AppEventViewer.Global_Const.SOURCE, strFromTime, strToTime);
         var mos = new ManagementObjectSearcher(wmiQuery);
         object o;
         return new List<IEventRecord>((from ManagementObject mo in mos.Get() select new EventRecord(mo)).ToList());

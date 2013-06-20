@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Management;
 using AppEventViewer.Models;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace AppEventViewer.Tests
 {
@@ -58,9 +59,9 @@ namespace AppEventViewer.Tests
            Debug.WriteLine("Testing Wmi Method Write_And_Read_Event_From_Log_With_WMI(), yeah.");
            DateTime FromTime = DateTime.Now.AddDays(-1); 
            // string SomeDateTime = "20130526000000.000000+000";
-           string strFromTime = String.Format(GlobalVar.DATE_FORMAT_STR, FromTime) + ".000000+000";
+           string strFromTime = String.Format(Global_Const.DATE_FORMAT_STR, FromTime) + ".000000+000";
             string wmiQuery =
-                  String.Format("SELECT * FROM Win32_NTLogEvent WHERE Logfile = '{0}' AND TimeGenerated > '{1}'", GlobalVar.SOURCE, strFromTime);
+                  String.Format("SELECT * FROM Win32_NTLogEvent WHERE Logfile = '{0}' AND TimeGenerated > '{1}'", Global_Const.SOURCE, strFromTime);
             //Act
             var mos = new ManagementObjectSearcher(wmiQuery);
            // mos.
@@ -96,26 +97,43 @@ namespace AppEventViewer.Tests
 
              ManagementScope scope = 
             new ManagementScope(
-                "\\\\FullComputerName\\root\\cimv2");
+                "\\\\WL2006228\\root\\cimv2");
         scope.Connect();
             // string SomeDateTime = "20130526000000.000000+000";
-            string strFromTime = String.Format(GlobalVar.DATE_FORMAT_STR, FromTime) + ".000000+000";
+        string strFromTime = String.Format(Global_Const.DATE_FORMAT_STR, FromTime) + ".000000+000";
             string wmiQuery =
-                  String.Format("SELECT * FROM Win32_OperatingSystem");
+                  String.Format("SELECT * FROM Win32_NTLogEvent WHERE Logfile = '{0}' AND TimeGenerated > '{1}'", Global_Const.SOURCE, strFromTime);
             //Act
-            var mos = new ManagementObjectSearcher(wmiQuery);
+            var mos = new ManagementObjectSearcher("\\\\.\\root\\cimv2",wmiQuery);
             //Act
-            var mos2 = new ManagementObjectSearcher(scope,wmiQuery);
+            var mos2 = new ManagementObjectSearcher("\\\\WL2006228\\root\\cimv2", wmiQuery);
 
             object o;
             Debug.WriteLine("***** Start writing Properties *****");
             List<EventRecord> EventRecordList = new List<EventRecord>();
+            List<EventRecord> EventRecordList2 = new List<EventRecord>();
+            
             foreach (ManagementObject mo in mos.Get())
             {
                 EventRecordList.Add(new EventRecord(mo));
                 Debug.WriteLine("***** New Managment Object from Eventstore *****");
                 Debug.WriteLine(String.Format("{0}: {1}", "Message", EventRecordList[EventRecordList.Count - 1].Message));
             }
+
+            foreach (ManagementObject mo2 in mos2.Get())
+            {
+                EventRecordList2.Add(new EventRecord(mo2));
+                Debug.WriteLine("***** New Managment Object from Eventstore *****");
+                Debug.WriteLine(String.Format("{0}: {1}", "Message", EventRecordList[EventRecordList.Count - 1].Message));
+            }
+
+            var eventRecMergedList = EventRecordList.Concat(EventRecordList2).OrderBy(e => e.TimeGenerated);
+            foreach (EventRecord ev in eventRecMergedList)
+            {
+                Debug.WriteLine(ev.TimeGenerated);
+                Debug.WriteLine(ev.RecordNumber);
+            }
+
             //Assert
             Assert.IsTrue(EventRecordList.Count > 0, "There should be some events last day");
         }
