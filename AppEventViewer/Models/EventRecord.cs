@@ -7,7 +7,23 @@ using System.Management;
 
 namespace AppEventViewer.Models
 {
-    public class EventRecord
+    public interface IEventRecord
+    {
+        string Category { get; set; }
+        string ComputerName { get; set; }
+        string EventCode { get; set; }
+        string EventType { get; set; }
+        string InsertionStrings { get; set; }
+        string Logfile { get; set; }
+        string Message { get; set; }
+        string RecordNumber { get; set; }
+        string SourceName { get; set; }
+        string TimeGenerated { get; set; }
+        string TimeWritten { get; set; }
+        string Type { get; set; }
+    }
+
+    public class EventRecord : IEventRecord
     {
         public EventRecord(ManagementObject vmi)
         {
