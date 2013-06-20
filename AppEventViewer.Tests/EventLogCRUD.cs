@@ -86,5 +86,38 @@ namespace AppEventViewer.Tests
             //Assert
             Assert.IsTrue(EventRecordList.Count > 0, "There should be some events last day");
         }
+
+        [TestMethod]
+        public void Read_Event_From_2_Computer_Log_With_WMI()
+        { // more info http://msdn.microsoft.com/en-us/library/ms257337(v=VS.80).aspx
+            //Arrange
+            Debug.WriteLine("Testing Wmi Method Write_And_Read_Event_From_2_Log_With_WMI(), scary.");
+            DateTime FromTime = DateTime.Now.AddDays(-1);
+
+             ManagementScope scope = 
+            new ManagementScope(
+                "\\\\FullComputerName\\root\\cimv2");
+        scope.Connect();
+            // string SomeDateTime = "20130526000000.000000+000";
+            string strFromTime = String.Format(GlobalVar.DATE_FORMAT_STR, FromTime) + ".000000+000";
+            string wmiQuery =
+                  String.Format("SELECT * FROM Win32_OperatingSystem");
+            //Act
+            var mos = new ManagementObjectSearcher(wmiQuery);
+            //Act
+            var mos2 = new ManagementObjectSearcher(scope,wmiQuery);
+
+            object o;
+            Debug.WriteLine("***** Start writing Properties *****");
+            List<EventRecord> EventRecordList = new List<EventRecord>();
+            foreach (ManagementObject mo in mos.Get())
+            {
+                EventRecordList.Add(new EventRecord(mo));
+                Debug.WriteLine("***** New Managment Object from Eventstore *****");
+                Debug.WriteLine(String.Format("{0}: {1}", "Message", EventRecordList[EventRecordList.Count - 1].Message));
+            }
+            //Assert
+            Assert.IsTrue(EventRecordList.Count > 0, "There should be some events last day");
+        }
     }
 }
