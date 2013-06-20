@@ -22,7 +22,7 @@ namespace AppEventViewer.Tests
         {
             //Arrange
             //   EventLog.CreateEventSource(SOURCE, LOGNAME);
-            var testEventLog = new EventLog { Source = LOGNAME, Log = LOGNAME };
+            var testEventLog = new EventLog {Source = LOGNAME, Log = LOGNAME};
             var entryMessageToCheck = String.Empty;
             //Act
             testEventLog.WriteEntry(TESTENTRY, EventLogEntryType.Information);
@@ -33,18 +33,18 @@ namespace AppEventViewer.Tests
             foreach (EventLogEntry entry in testEventRows)
             {
                 i++;
-                if (i>maxIter)
+                if (i > maxIter)
                 {
-                    break;                    
+                    break;
                 }
                 if (entry.TimeWritten > stopdt) break; //only 
 
-                    if (entry.ReplacementStrings[0] == null) continue;
-                    if (entry.ReplacementStrings[0].Equals(TESTENTRY))
-                    {
-                        entryMessageToCheck = entry.ReplacementStrings[0];
-                        break;
-                    }           
+                if (entry.ReplacementStrings[0] == null) continue;
+                if (entry.ReplacementStrings[0].Equals(TESTENTRY))
+                {
+                    entryMessageToCheck = entry.ReplacementStrings[0];
+                    break;
+                }
             }
 
             //Assert
@@ -56,25 +56,26 @@ namespace AppEventViewer.Tests
         public void Read_Event_From_Log_With_WMI()
         {
             //Arrange
-           Debug.WriteLine("Testing Wmi Method Write_And_Read_Event_From_Log_With_WMI(), yeah.");
-           DateTime FromTime = DateTime.Now.AddDays(-1); 
-           // string SomeDateTime = "20130526000000.000000+000";
-           string strFromTime = String.Format(Global_Const.DATE_FORMAT_STR, FromTime) + ".000000+000";
+            Debug.WriteLine("Testing Wmi Method Write_And_Read_Event_From_Log_With_WMI(), yeah.");
+            DateTime FromTime = DateTime.Now.AddDays(-1);
+            // string SomeDateTime = "20130526000000.000000+000";
+            string strFromTime = String.Format(Global_Const.DATE_FORMAT_STR, FromTime) + ".000000+000";
             string wmiQuery =
-                  String.Format("SELECT * FROM Win32_NTLogEvent WHERE Logfile = '{0}' AND TimeGenerated > '{1}'", Global_Const.SOURCE, strFromTime);
+                String.Format("SELECT * FROM Win32_NTLogEvent WHERE Logfile = '{0}' AND TimeGenerated > '{1}'",
+                              Global_Const.SOURCE, strFromTime);
             //Act
             var mos = new ManagementObjectSearcher(wmiQuery);
-           // mos.
+            // mos.
             //EventLogEntryCollection eventLogEntryCollection = (EventLogEntryCollection)mos.Container; 
             object o;
             Debug.WriteLine("***** Start writing Properties *****");
             List<EventRecord> EventRecordList = new List<EventRecord>();
             foreach (ManagementObject mo in mos.Get())
             {
-               EventRecordList.Add (new EventRecord(mo));
+                EventRecordList.Add(new EventRecord(mo));
                 Debug.WriteLine("***** New Managment Object from Eventstore *****");
-                Debug.WriteLine(String.Format("{0}: {1}","Message", EventRecordList[EventRecordList.Count - 1].Message));
-               // EventLogEntry eventLogRow = (EventLogEntry)mo;
+                Debug.WriteLine(String.Format("{0}: {1}", "Message", EventRecordList[EventRecordList.Count - 1].Message));
+                // EventLogEntry eventLogRow = (EventLogEntry)mo;
                 //foreach (PropertyData pd in mo.Properties)
                 //{
                 //    o = mo[pd.Name];
@@ -90,29 +91,32 @@ namespace AppEventViewer.Tests
 
         [TestMethod]
         public void Read_Event_From_2_Computer_Log_With_WMI()
-        { // more info http://msdn.microsoft.com/en-us/library/ms257337(v=VS.80).aspx
+        {
+            // more info http://msdn.microsoft.com/en-us/library/ms257337(v=VS.80).aspx
             //Arrange
             Debug.WriteLine("Testing Wmi Method Write_And_Read_Event_From_2_Log_With_WMI(), scary.");
             DateTime FromTime = DateTime.Now.AddDays(-1);
 
-             ManagementScope scope = 
-            new ManagementScope(
-                "\\\\WL2006228\\root\\cimv2");
-        scope.Connect();
+            //     ManagementScope scope = 
+            //    new ManagementScope(
+            //        "\\\\WL2006228\\root\\cimv2");
+            //scope.Connect();
             // string SomeDateTime = "20130526000000.000000+000";
-        string strFromTime = String.Format(Global_Const.DATE_FORMAT_STR, FromTime) + ".000000+000";
+            string strFromTime = String.Format(Global_Const.DATE_FORMAT_STR, FromTime) + ".000000+000";
             string wmiQuery =
-                  String.Format("SELECT * FROM Win32_NTLogEvent WHERE Logfile = '{0}' AND TimeGenerated > '{1}'", Global_Const.SOURCE, strFromTime);
+                String.Format("SELECT * FROM Win32_NTLogEvent WHERE Logfile = '{0}' AND TimeGenerated > '{1}'",
+                              Global_Const.SOURCE, strFromTime);
             //Act
-            var mos = new ManagementObjectSearcher("\\\\.\\root\\cimv2",wmiQuery);
+            var mos = new ManagementObjectSearcher("\\\\.\\root\\cimv2", wmiQuery);
             //Act
-            var mos2 = new ManagementObjectSearcher("\\\\WL2006228\\root\\cimv2", wmiQuery);
+            var ComputerName = System.Environment.MachineName;
+            var mos2 = new ManagementObjectSearcher("\\\\" + ComputerName + "\\root\\cimv2", wmiQuery);
 
             object o;
             Debug.WriteLine("***** Start writing Properties *****");
-            List<EventRecord> EventRecordList = new List<EventRecord>();
-            List<EventRecord> EventRecordList2 = new List<EventRecord>();
-            
+            var EventRecordList = new List<EventRecord>();
+            var EventRecordList2 = new List<EventRecord>();
+
             foreach (ManagementObject mo in mos.Get())
             {
                 EventRecordList.Add(new EventRecord(mo));
@@ -128,14 +132,23 @@ namespace AppEventViewer.Tests
             }
 
             var eventRecMergedList = EventRecordList.Concat(EventRecordList2).OrderBy(e => e.TimeGenerated);
+            string prevEv = String.Empty;
+            int isBigger = 0;
             foreach (EventRecord ev in eventRecMergedList)
             {
                 Debug.WriteLine(ev.TimeGenerated);
                 Debug.WriteLine(ev.RecordNumber);
+                isBigger = String.Compare(ev.TimeGenerated, prevEv, System.StringComparison.Ordinal);
+                prevEv = ev.TimeGenerated;
+                if (isBigger < 0)
+                {
+                    break;
+                }
             }
 
             //Assert
-            Assert.IsTrue(EventRecordList.Count > 0, "There should be some events last day");
+            Assert.IsTrue(eventRecMergedList.Any(), "There should be some events last day");
+            Assert.IsTrue(isBigger >= 0, "Sorting sucks");
         }
     }
 }
