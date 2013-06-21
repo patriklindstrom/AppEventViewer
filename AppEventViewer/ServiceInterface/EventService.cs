@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Management;
 using System.Web;
-using AppEventViewer;
 using AppEventViewer.Models;
 using AppEventViewer.ServiceInterface;
 using ServiceStack.ServiceHost;
@@ -75,36 +72,3 @@ namespace AppEventViewer.ServiceInterface
     }
 }
 
-public interface IEventRepository
-{
-    List<IEventRecord> GetByTimeFilter(DateTime fromTime, DateTime toTime, int maxRows, int timeOutSec);
-}
-
-public class EventRepository : IEventRepository
-{
-    public IAppConfig Config; //injected hopefully buy IOC
-    public List<IEventRecord> GetByTimeFilter(DateTime fromTime, DateTime toTime, int maxRows, int timeOutSec)
-    {
-        
-        // DateTime fromTime = DateTime.Now.AddHours(-1*lag);
-        string strFromTime = String.Format(AppEventViewer.Global_Const.DATE_FORMAT_STR, fromTime) + ".000000+000";
-        string strToTime = String.Format("{0:yyyyMMddHHmmss}", toTime) + ".000000+000";
-        string wmiQuery =
-            String.Format(
-                "SELECT * FROM Win32_NTLogEvent WHERE Logfile = '{0}' AND TimeGenerated >= '{1}' AND TimeGenerated <= '{2}' ",
-                AppEventViewer.Global_Const.SOURCE, strFromTime, strToTime);
-        List<IEventRecord> eventRecordList;
-        List<IEventRecord> eventRecMergedList = new List<IEventRecord>();
-        foreach (var serv in AppConfig.ServersToQuery)
-        {
-             var mos = new ManagementObjectSearcher("\\\\"+ serv +"\\root\\cimv2", wmiQuery);
-
-            eventRecordList = new List<IEventRecord>((from ManagementObject mo in mos.Get() select new EventRecord(mo)).ToList());
-            eventRecMergedList = (List < IEventRecord > )eventRecordList.Concat(eventRecordList);
-           //      .Concat(eventRecordList).OrderBy(e => e.TimeGenerated);
-        }
-        //var eventRecMergedList = EventRecordList.Concat(EventRecordList2).OrderBy(e => e.TimeGenerated);
-        List<IEventRecord> returnEventList =  new List<IEventRecord>(eventRecMergedList.OrderBy(e => e.TimeGenerated));
-        return returnEventList;
-    }
-}

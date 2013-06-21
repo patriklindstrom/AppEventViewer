@@ -22,7 +22,9 @@ namespace AppEventViewer
     {
         public AppConfig()     
         {
-         _serversToQuery = new List<string> {"Herkules", "."};
+            //Fake two servers by talke localhost computer name and . that is local computer
+            _serversToQuery = new List<string> { System.Environment.MachineName, "." };
+            _filterTerm = "TCM";
             _filterTerm = "TCM";
         }
 
@@ -44,7 +46,7 @@ namespace AppEventViewer
         {
             get
             {
-                _serversToQuery = new List<string> {"Herkules", "."};
+                //_serversToQuery = new List<string> {"Herkules", "."};
                 
                 return _serversToQuery;
             }
