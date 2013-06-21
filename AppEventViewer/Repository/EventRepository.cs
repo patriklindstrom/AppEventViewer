@@ -25,6 +25,10 @@ public class EventRepository : IEventRepository
                 "SELECT * FROM Win32_NTLogEvent WHERE Logfile = '{0}' AND TimeGenerated >= '{1}' AND TimeGenerated <= '{2}' ",
                 AppEventViewer.Global_Const.SOURCE, strFromTime, strToTime);
         List<IEventRecord> eventRecMergedList = new List<IEventRecord>();
+        if (Config == null)
+        {
+            throw new NullReferenceException("There is no configuration object and therefore no list of servers. Config object  is null. It is the Func IOC that should have set this in the code. Something trivial is missing.");
+        }
         if (Config.ServersToQuery==null)
         {
             throw new NullReferenceException("The list of servers from Config is null. That is bad.");

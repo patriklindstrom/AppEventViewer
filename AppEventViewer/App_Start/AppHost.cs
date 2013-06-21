@@ -61,9 +61,15 @@ namespace AppEventViewer.App_Start
 			//ConfigureAuth(container);
 
 			//Register all your dependencies
-            container.Register<IEventRepository>(new EventRepository());	
-			container.Register(new TodoRepository());
-            container.Register<IAppConfig>(new AppConfig());
+//            container.Register<IJellybeanDispenser>(c => new VanillaJellybeanDispenser());
+//            container.Register(c => new SweetVendingMachine(c.Resolve<IJellybeanDispenser>()));
+//            container.Register(c => new SweetShop(c.Resolve<SweetVendingMachine>()));
+//- See more at: http://anthonysteele.co.uk/the-funq-ioc-container#sthash.ketDSF72.dpuf
+            container.Register<IAppConfig>(c=>new AppConfig());
+            container.Register<IEventRepository>(c=> new EventRepository());
+		    container.Resolve<IEventRepository>().Config = container.Resolve<IAppConfig>();
+           // container.Register(c => new TodoRepository());
+
             //Register a external dependency-free 
             container.Register<ICacheClient>(new MemoryCacheClient());
             //Configure an alt. distributed persistent cache that survives AppDomain restarts. e.g Redis

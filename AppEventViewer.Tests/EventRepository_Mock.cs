@@ -33,7 +33,7 @@ namespace AppEventViewer.Tests
                     RecordNumber = "460172",
                     SourceName = "IIS Express",
                     TimeGenerated = "20130619182551.000000-000",
-                    TimeWritten = "20130619182551.000000-000",
+                   // TimeWritten = "20130619182551.000000-000",
                     Type = "Varning"
                 };
 
@@ -51,7 +51,7 @@ namespace AppEventViewer.Tests
                     RecordNumber = "460171",
                     SourceName = "application",
                     TimeGenerated = "20130619182521.000000-000",
-                    TimeWritten = "20130619182521.000000-000",
+                   // TimeWritten = "20130619182521.000000-000",
                     Type = "Information"
                 };
             eventRecordList.Add(er2);
