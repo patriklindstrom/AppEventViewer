@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using AppEventViewer.Models;
 using AppEventViewer.ServiceInterface;
 
 namespace AppEventViewer.Controllers
@@ -12,13 +14,14 @@ namespace AppEventViewer.Controllers
         //
         // GET: /Events/
         /// <summary>
-        /// The main get methods. Shows list of all events
+        /// Gets an optional from and to show the repositories list of log events. The main get methods. Shows list of all events
         /// </summary>
         /// <param name="eventReq">A class for parameters they are strings but represent from to dates for the log events</param>
         /// <seealso cref="EventReq"/>
         public ActionResult Index(EventReq eventReq)
         {
-            return View();
+            var eventRecListViewModel = new EventRecListViewModel();
+            return View(eventRecListViewModel);
         }
 
         //
@@ -107,22 +110,6 @@ namespace AppEventViewer.Controllers
             }
         }
     }
-    /// <summary>
-    /// A DTO class that stores the request parameters for the datetime from and to
-    /// similar to the Events class
-    /// </summary>
-    /// <seealso cref="AppEventViewer.ServiceInterface.Events"/>
-    public class EventReq
-    {
-        /// <summary>
-        /// Get the from date and time for log events 
-        /// </summary>
-        /// <value>The value should be able to parse as a date time</value>
-        public string   From { get; set; }
-        /// <summary>
-        /// Get the to in a from-to date and time for log events 
-        /// </summary>
-        /// <value>The value should be able to parse as a date time</value>
-        public string To { get; set; }
-    }
+
+
 }
