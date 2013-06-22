@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Web.Mvc;
 using AppEventViewer.Controllers;
 using AppEventViewer.Models;
+using AppEventViewer.ServiceInterface;
 using Funq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -26,18 +27,22 @@ namespace AppEventViewer.Tests.Controllers
         {
             // Arrange
             EventsController controller = new EventsController();
-            var eventReq = new EventReq {From = "20130613154515", To = "20130614163022"};
+           // var eventReq = new EventReq {From = "20130613154515", To = "20130614163022"};
+            var eventReq = new EventReq {From = "20130618202500", To = "20130619182551"};
+
+            var eventService = new EventService { Repository = TestContainer.Resolve<IEventRepository>() };
+ 
             // Act
             ViewResult result = controller.Index(eventReq) as ViewResult;
-            IEventRecListViewModel viewResult = (IEventRecListViewModel) result;
+            IEventRecListViewModel viewResult = (IEventRecListViewModel) result.Model;
             // Assert
  
             Assert.AreEqual("Here is a list of all filtered events from all server nodes.", result.ViewBag.Message);
             Assert.IsNotNull(result, "Response from Eventservice is null");
             Assert.IsInstanceOfType(result, typeof(IEventRecListViewModel), "Returns the wrong ViewModel");
-            IEventRecListViewModel eventRList = (IEventRecListViewModel)result.Model;
 
-            int evRlCount = eventRList.Count;
+
+            int evRlCount = viewResult.EventList.Count;
             Assert.IsTrue(evRlCount == 20, "There should be 20 item in the event test list");
         }
     }

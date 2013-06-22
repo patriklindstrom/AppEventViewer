@@ -4,14 +4,18 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using AppEventViewer.App_Start;
 using AppEventViewer.Models;
 using AppEventViewer.ServiceInterface;
+using ServiceStack.Mvc;
+using ServiceStack.ServiceClient.Web;
 
 namespace AppEventViewer.Controllers
 {
-    public class EventsController : Controller
+    public class EventsController : ControllerBase<CustomUserSession>
     {
-        public IEventRepository EventRepository; //injected by Func IOC
+
+        //public IEventRepository EventRepository; //injected by Func IOC
         //
         // GET: /Events/
         /// <summary>
@@ -21,8 +25,11 @@ namespace AppEventViewer.Controllers
         /// <seealso cref="EventReq"/>
         public ActionResult Index(EventReq eventReq)
         {
+            JsonServiceClient ServiceClient = new JsonServiceClient("http://localhost:60176/api/events");//injected by Func IOC
             ViewBag.Message = "Here is a list of all filtered events from all server nodes.";
             var eventRecListViewModel = new EventRecListViewModel();
+            var events = new Events {From = eventReq.From,To=eventReq.To};
+            var response = ServiceClient.Get<EventRecordListResponse>(events);
             return View(eventRecListViewModel);
         }
 

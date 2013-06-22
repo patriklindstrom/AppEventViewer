@@ -64,7 +64,7 @@ namespace AppEventViewer.App_Start
 //            container.Register<IJellybeanDispenser>(c => new VanillaJellybeanDispenser());
 //            container.Register(c => new SweetVendingMachine(c.Resolve<IJellybeanDispenser>()));
 //            container.Register(c => new SweetShop(c.Resolve<SweetVendingMachine>()));
-//- See more at: http://anthonysteele.co.uk/the-funq-ioc-container#sthash.ketDSF72.dpuf
+// See more at: http://anthonysteele.co.uk/the-funq-ioc-container#sthash.ketDSF72.dpuf
             container.Register<IAppConfig>(c=>new AppConfig());
             container.Register<IEventRepository>(c=> new EventRepository());
 		    container.Resolve<IEventRepository>().Config = container.Resolve<IAppConfig>();
