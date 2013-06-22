@@ -110,7 +110,34 @@ namespace AppEventViewer.App_Start
 		}
 		*/
 
-		public static void Start()
+	    private void ConfigureAuth(Funq.Container container)
+	    {
+	        var appSettings = new AppSettings();
+            //Default route: /auth/{provider}
+            Plugins.Add(new AuthFeature(() => new CustomUserSession(),
+                new IAuthProvider[] {
+					new BasicAuthProvider(appSettings), 
+				}));
+	        var userRepository = new InMemoryAuthRepository();
+            container.Register<IUserAuthRepository>(userRepository);
+	        string hash;
+	        string salt;
+            new SaltedHash().GetHashAndSaltString("password",out hash,out salt);
+	        userRepository.CreateUserAuth(new UserAuth
+	            {
+	                Id = 1 
+	            DisplayName = "JoeUser",
+	                Email = "joe@user.com",
+	                UserName = "jUser",
+	                FirstName = "Joe",
+	                LastName = "User",
+	                PasswordHash = hash,
+	                Salt = salt
+
+	            });
+	    }
+
+	    public static void Start()
 		{
 
 			new AppHost().Init();
