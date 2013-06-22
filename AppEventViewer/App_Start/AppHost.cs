@@ -7,6 +7,7 @@ using AppEventViewer.ServiceInterface;
 using ServiceStack.Configuration;
 using ServiceStack.CacheAccess;
 using ServiceStack.CacheAccess.Providers;
+using ServiceStack.Logging;
 using ServiceStack.Mvc;
 using ServiceStack.OrmLite;
 using ServiceStack.ServiceInterface;
@@ -111,6 +112,7 @@ namespace AppEventViewer.App_Start
 
 		public static void Start()
 		{
+
 			new AppHost().Init();
 		}
 	}

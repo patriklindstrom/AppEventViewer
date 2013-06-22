@@ -29,8 +29,21 @@ namespace AppEventViewer.Controllers
             ViewBag.Message = "Here is a list of all filtered events from all server nodes.";
             var eventRecListViewModel = new EventRecListViewModel();
             var events = new Events {From = eventReq.From,To=eventReq.To};
-            var response = ServiceClient.Get<EventRecordListResponse>(events);
+            try
+            {
+                var response = ServiceClient.Get<EventRecordListResponse>(events);
+            }
+            catch (WebServiceException exception)
+            {
+                throw;
+            }
+            finally
+            {
+
+            }
+
             return View(eventRecListViewModel);
+
         }
 
         //

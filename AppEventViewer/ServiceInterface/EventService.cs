@@ -5,6 +5,7 @@ using AppEventViewer.Models;
 using AppEventViewer.ServiceInterface;
 using ServiceStack.ServiceHost;
 using ServiceStack.ServiceInterface;
+using ServiceStack.ServiceInterface.ServiceModel;
 
 namespace AppEventViewer.ServiceInterface
 {
@@ -52,6 +53,7 @@ namespace AppEventViewer.ServiceInterface
     public class EventRecordListResponse
     {
         public List<IEventRecord> EventRecords { get; set; }
+        public ResponseStatus ResponseStatus { get; set; }
     }
 
     //Implementation
@@ -68,7 +70,8 @@ namespace AppEventViewer.ServiceInterface
         public IEventRepository Repository { get; set; } //                   
         public object Get(Events request)
         {
-            string fromTime = request.From ?? DateTime.Now.AddHours(-1).ToString(Global_Const.DATE_FORMAT);
+            //throw new NotImplementedException("This is a test");
+            string fromTime = request.From ?? DateTime.Now.AddHours(-3).ToString(Global_Const.DATE_FORMAT);
             DateTime outFromTime = DateTime.ParseExact(fromTime, Global_Const.DATE_FORMAT,
                                                        System.Globalization.CultureInfo.InvariantCulture);
             string toTime = request.To ?? DateTime.Now.ToString(Global_Const.DATE_FORMAT);
