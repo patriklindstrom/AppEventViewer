@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Management;
+using AppEventViewer.App_Start;
 using AppEventViewer.Models;
+using AppEventViewer.Repository;
 using FakeItEasy;
 
 namespace AppEventViewer.Tests

@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 
-namespace AppEventViewer
+namespace AppEventViewer.App_Start
 {
     public static class Global_Const {
         public const string SOURCE = "application";
@@ -18,7 +15,7 @@ namespace AppEventViewer
         string FilterTerm { get; set; }
         System.Collections.Generic.List<string> ServersToQuery { get; set; }
     }
-    public   class AppConfig : AppEventViewer.IAppConfig
+    public   class AppConfig : IAppConfig
     {
         public AppConfig()     
         {

@@ -25,7 +25,7 @@ namespace AppEventViewer.Controllers
         /// <seealso cref="EventReq"/>
         public ActionResult Index(EventReq eventReq)
         {
-            JsonServiceClient ServiceClient = new JsonServiceClient("http://localhost:60176/api/events");//injected by Func IOC
+            JsonServiceClient ServiceClient = new JsonServiceClient("http://localhost:60176/api/");//injected by Func IOC
             ViewBag.Message = "Here is a list of all filtered events from all server nodes.";
             var eventRecListViewModel = new EventRecListViewModel();
             var events = new Events {From = eventReq.From,To=eventReq.To};

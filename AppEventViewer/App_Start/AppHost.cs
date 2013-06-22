@@ -3,6 +3,7 @@ using System.Linq;
 using System.Configuration;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using AppEventViewer.Repository;
 using AppEventViewer.ServiceInterface;
 using ServiceStack.Configuration;
 using ServiceStack.CacheAccess;
@@ -125,7 +126,7 @@ namespace AppEventViewer.App_Start
             new SaltedHash().GetHashAndSaltString("password",out hash,out salt);
 	        userRepository.CreateUserAuth(new UserAuth
 	            {
-	                Id = 1 
+	                Id = 1 ,
 	            DisplayName = "JoeUser",
 	                Email = "joe@user.com",
 	                UserName = "jUser",
@@ -134,7 +135,7 @@ namespace AppEventViewer.App_Start
 	                PasswordHash = hash,
 	                Salt = salt
 
-	            });
+	            },"password");
 	    }
 
 	    public static void Start()

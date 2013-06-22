@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using AppEventViewer.App_Start;
 using AppEventViewer.Models;
+using AppEventViewer.Repository;
 using AppEventViewer.ServiceInterface;
 using Funq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

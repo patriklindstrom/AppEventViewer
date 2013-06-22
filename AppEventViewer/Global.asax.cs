@@ -6,6 +6,7 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using AppEventViewer.App_Start;
 using ServiceStack.MiniProfiler;
 
 namespace AppEventViewer

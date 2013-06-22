@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web;
+using AppEventViewer.App_Start;
 using AppEventViewer.Models;
+using AppEventViewer.Repository;
 using AppEventViewer.ServiceInterface;
 using ServiceStack.ServiceHost;
 using ServiceStack.ServiceInterface;

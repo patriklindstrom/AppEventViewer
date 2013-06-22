@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using AppEventViewer.App_Start;
 using AppEventViewer.Models;
+using AppEventViewer.Repository;
 using Funq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Web.Mvc;
 using AppEventViewer.Controllers;
 using AppEventViewer.Models;
+using AppEventViewer.Repository;
 using AppEventViewer.ServiceInterface;
 using Funq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

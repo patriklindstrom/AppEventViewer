@@ -1,4 +1,5 @@
 ﻿using System;
+using AppEventViewer.App_Start;
 using AppEventViewer.ServiceInterface;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Diagnostics;
