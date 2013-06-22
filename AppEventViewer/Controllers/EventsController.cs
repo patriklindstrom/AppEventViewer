@@ -11,6 +11,7 @@ namespace AppEventViewer.Controllers
 {
     public class EventsController : Controller
     {
+        public IEventRepository EventRepository; //injected by Func IOC
         //
         // GET: /Events/
         /// <summary>
@@ -20,6 +21,7 @@ namespace AppEventViewer.Controllers
         /// <seealso cref="EventReq"/>
         public ActionResult Index(EventReq eventReq)
         {
+            ViewBag.Message = "Here is a list of all filtered events from all server nodes.";
             var eventRecListViewModel = new EventRecListViewModel();
             return View(eventRecListViewModel);
         }
