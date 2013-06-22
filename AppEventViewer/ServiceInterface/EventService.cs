@@ -79,7 +79,10 @@ namespace AppEventViewer.ServiceInterface
             string toTime = request.To ?? DateTime.Now.ToString(Global_Const.DATE_FORMAT);
             DateTime outToTime = DateTime.ParseExact(toTime, Global_Const.DATE_FORMAT,
                                                      System.Globalization.CultureInfo.InvariantCulture);
-            return Repository.GetByTimeFilter(outFromTime, outToTime, Global_Const.MAXGETROWS, Global_Const.TIMEOUT_S);
+            var returnList =  Repository.GetByTimeFilter(outFromTime, outToTime, Global_Const.MAXGETROWS, Global_Const.TIMEOUT_S);
+            var eventRecListResp = new EventRecordListResponse();
+            eventRecListResp.EventRecords = returnList;
+            return eventRecListResp;
         }
     }
 }

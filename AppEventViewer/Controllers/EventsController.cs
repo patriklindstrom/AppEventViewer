@@ -31,7 +31,7 @@ namespace AppEventViewer.Controllers
             var events = new Events {From = eventReq.From,To=eventReq.To};
             try
             {
-                var response = ServiceClient.Get<EventRecordListResponse>(events);
+                var response = ServiceClient.Get(events);
             }
             catch (WebServiceException exception)
             {
