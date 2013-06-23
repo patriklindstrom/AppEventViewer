@@ -15,7 +15,7 @@ namespace AppEventViewer.Tests
     {
         public const string SOURCE = "EventTestWriter";
         public const string LOGNAME = "application";
-        public const string TESTENTRY = "The " + SOURCE + " was initilized. Go DTD. Do not fail me";
+        public const string TESTENTRY = "The " + SOURCE + " was initilized. Go DTD. Do not fail me jabberjowitch";
 
 
         [TestMethod]

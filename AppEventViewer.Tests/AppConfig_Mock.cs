@@ -7,39 +7,49 @@ namespace AppEventViewer.Tests
 
     public   class AppConfig_Mock : IAppConfig
     {
-        public AppConfig_Mock()     
+
+
+        public List<string> FilterTerm
         {
-            //Fake two servers by talke localhost computer name and . that is local computer
-            ServersToQuery = new List<string> { System.Environment.MachineName, "." }; 
-            FilterTerm = "TCM";
-        }
+            get { return new List<string> { "TCM", "SQL", "MQ", "jabberjowitch" }; }
 
-        public string FilterTerm { get; set; }
-
-        List<string> IAppConfig.ServersToQuery
-        {
-            get { return ServersToQuery; }
-            set { ServersToQuery = value; }
-        }
-
-        public static List<string> ServersToQuery { get; set; }
-    }
-
-    public class AppConfig_Null_Mock : IAppConfig
-    {
-        private string _filterTerm =null;
-        private List<string> _serversToQuery = null;
-
-        public string FilterTerm
-        {
-            get { return _filterTerm; }
-            set { _filterTerm = value; }
         }
 
         public List<string> ServersToQuery
         {
-            get { return _serversToQuery; }
-            set { _serversToQuery = value; }
+                        //Fake two servers by talke localhost computer name and . that is local computer
+            get { return new List<string> {System.Environment.MachineName, "."}; }
+        }
+
+    }
+
+    public class AppConfig_Null_Mock : IAppConfig
+    {
+
+
+        public List<string> FilterTerm
+        {
+            get { return null; }
+        
+        }
+
+        public List<string> ServersToQuery
+        {
+            get { return null; }
+        }
+    }
+
+    public class AppConfig_ZeroServer_Mock : IAppConfig
+    {
+        public List<string> FilterTerm
+        {
+            get { return new List<string> { "TCM", "SQL", "MQ" }; ; }
+
+        }
+
+        public List<string> ServersToQuery
+        {
+            get { return new List<string> {};  }
         }
     }
 }

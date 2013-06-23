@@ -57,10 +57,9 @@ namespace AppEventViewer.Tests
         public void Test_that_GetByTimeFilter_Returns_a_sorted_list_when_No_server()
         {
             //Arrange
-            TestContainer.Register<IAppConfig>(new AppConfig_Mock()); // We are using test config for this tests.
+            TestContainer.Register<IAppConfig>(new AppConfig_ZeroServer_Mock()); // We are using test config for this tests.
             IEventRepository testRep = TestContainer.Resolve<IEventRepository>();
             testRep.Config = TestContainer.Resolve<IAppConfig>();
-            testRep.Config.ServersToQuery = new List<string> {}; // put in a empty list to se if it can coop with that
             DateTime fromTime = DateTime.Now.AddDays(-1);
             DateTime toTime = DateTime.Now;
             //Act
@@ -77,7 +76,6 @@ namespace AppEventViewer.Tests
             TestContainer.Register<IAppConfig>(new AppConfig_Null_Mock());
             IEventRepository testRep = TestContainer.Resolve<IEventRepository>();
             testRep.Config = TestContainer.Resolve<IAppConfig>();
-            testRep.Config.ServersToQuery = null; // put in a empty list to se if it can coop with that
             DateTime fromTime = DateTime.Now.AddDays(-1);
             DateTime toTime = DateTime.Now;
             //Act

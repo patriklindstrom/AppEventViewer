@@ -28,8 +28,8 @@ namespace AppEventViewer.App_Start
 
    public interface IAppConfig
     {
-        string FilterTerm { get; set; }
-        System.Collections.Generic.List<string> ServersToQuery { get; set; }
+       List<string> FilterTerm { get; }
+        List<string> ServersToQuery { get;  }
     }
     public   class AppConfig : IAppConfig
     {         
@@ -38,20 +38,20 @@ namespace AppEventViewer.App_Start
             var  appSettings = new AppSettings();
             string baseApiUrl = appSettings.Get("BaseApiUrl","http://localhost:80/api/");
             _serversToQuery = (List<string>)appSettings.GetList("ListOfServers");
+            _filterTerm = (List<string>)appSettings.GetList("FilterTermList");
             //Fake two servers by talke localhost computer name and . that is local computer
             // _serversToQuery = new List<string> { System.Environment.MachineName, "." };
         }
         private static List<string> _serversToQuery;
-        private string _filterTerm;
-        public  string FilterTerm
+        private static List<string> _filterTerm;
+        public  List<string> FilterTerm
         {
             get { return _filterTerm; }
-            set { _filterTerm = value; }
         }
-        List<string> IAppConfig.ServersToQuery
+
+        public List<string> ServersToQuery
         {
             get { return _serversToQuery; }
-            set { _serversToQuery = value; }
         }
     }
 }

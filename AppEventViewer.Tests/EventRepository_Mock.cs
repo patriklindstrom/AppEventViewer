@@ -31,7 +31,7 @@ namespace AppEventViewer.Tests
                         @"C:\Users\Patrik\AppData\Local\Temp\iisexpress\IIS Temporary Compressed Files\Clr4IntegratedAppPoo",
                     Logfile = "Application",
                     Message =
-                        @"The directory specified for caching compressed content C:\Users\Patrik\AppData\Local\Temp\iisexpress\IIS Temporary Compressed Files\Clr4IntegratedAppPool is invalid. Static compression is being disabled.",
+                        @"The directory jabberjowitch specified for caching compressed content C:\Users\Patrik\AppData\Local\Temp\iisexpress\IIS Temporary Compressed Files\Clr4IntegratedAppPool is invalid. Static compression is being disabled.",
                     RecordNumber = "460172",
                     SourceName = "IIS Express",
                     TimeGenerated = "20130619182551.000000-000",
@@ -47,7 +47,7 @@ namespace AppEventViewer.Tests
                     ComputerName = "Herkules",
                     EventCode = "0",
                     EventType = "3",
-                    InsertionStrings = @"The EventTestWriter was initilized. Go DTD. Do not fail me",
+                    InsertionStrings = @"The EventTestWriter was initilized. Go DTD. Do not fail me. jabberjowitch",
                     Logfile = "Application",
                     Message = String.Empty,
                     RecordNumber = "460171",
@@ -64,10 +64,18 @@ namespace AppEventViewer.Tests
             IEventRecord er3 = A.Fake<IEventRecord>();
             // A.CallTo(er3).WithReturnType<string>().Returns("hello world");
             eventRecordList.Add(er3);
+            Random rnd = new Random();
             for (int i = 4; i <= 20; i++)
             {
-                IEventRecord erN = A.Fake<IEventRecord>();
-                A.CallTo(erN).WithReturnType<string>().Returns("hello world nr: " + i.ToString());
+                var erN = A.Fake<IEventRecord>();
+                A.CallTo(erN).WithReturnType<string>().Returns("Default Mockstring: " + i.ToString());
+                A.CallTo(() => erN.ComputerName).Returns("Herkules");
+                A.CallTo(() => erN.EventCode).Returns(rnd.Next(0,2000).ToString());
+                A.CallTo(() => erN.EventType).Returns(rnd.Next(0, 5).ToString());
+                A.CallTo(() => erN.RecordNumber).Returns((460175+rnd.Next(1,200)).ToString());
+                A.CallTo(() => erN.SourceName).Returns("application");  
+                A.CallTo(() => erN.Message).Returns("jabberjowitch is not a project");
+                A.CallTo(() => erN.TimeGenerated).Returns("20130619182521.000000-" + rnd.Next(111,999).ToString());
                 eventRecordList.Add(erN);
             }
 
