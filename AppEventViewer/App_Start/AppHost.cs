@@ -62,6 +62,9 @@ namespace AppEventViewer.App_Start
 			//Enable Authentication
 			//ConfigureAuth(container);
 
+              var appSettings = new AppSettings();
+
+              string baseApiUrl = appSettings.Get("BaseApiUrl","foo");
 			//Register all your dependencies
 //            container.Register<IJellybeanDispenser>(c => new VanillaJellybeanDispenser());
 //            container.Register(c => new SweetVendingMachine(c.Resolve<IJellybeanDispenser>()));

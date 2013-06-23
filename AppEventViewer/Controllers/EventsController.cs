@@ -16,7 +16,7 @@ namespace AppEventViewer.Controllers
     public class EventsController : ControllerBase<CustomUserSession>
     {
 
-        JsonServiceClient ServiceClient = new JsonServiceClient("http://localhost:60176/api/");
+       public JsonServiceClient ServiceClient = new JsonServiceClient("http://localhost:60176/api/");
         //public IEventRepository EventRepository; //injected by Func IOC
         //
         // GET: /Events/

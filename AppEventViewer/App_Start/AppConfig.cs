@@ -1,4 +1,20 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Linq;
+using System.Configuration;
+using System.Collections.Generic;
+using System.Web.Mvc;
+using AppEventViewer.Repository;
+using AppEventViewer.ServiceInterface;
+using ServiceStack.Configuration;
+using ServiceStack.CacheAccess;
+using ServiceStack.CacheAccess.Providers;
+using ServiceStack.Logging;
+using ServiceStack.Mvc;
+using ServiceStack.OrmLite;
+using ServiceStack.ServiceInterface;
+using ServiceStack.ServiceInterface.Auth;
+using ServiceStack.ServiceInterface.ServiceModel;
+using ServiceStack.WebHost.Endpoints;
 
 namespace AppEventViewer.App_Start
 {
@@ -17,12 +33,19 @@ namespace AppEventViewer.App_Start
     }
     public   class AppConfig : IAppConfig
     {
+         
         public AppConfig()     
         {
-            //Fake two servers by talke localhost computer name and . that is local computer
+            var  appSettings = new AppSettings();
+
+            string baseApiUrl = appSettings.Get("BaseApiUrl","http://localhost:80/api/");
             _serversToQuery = new List<string> { System.Environment.MachineName, "." };
-            _filterTerm = "TCM";
-            _filterTerm = "TCM";
+            var  serversToQuery2 =  (List<string>)appSettings.GetList("ListOfServers");
+            //Fake two servers by talke localhost computer name and . that is local computer
+           
+                //new List<string> { System.Environment.MachineName, "." };
+
+
         }
 
         private static List<string> _serversToQuery;
@@ -35,19 +58,10 @@ namespace AppEventViewer.App_Start
 
         List<string> IAppConfig.ServersToQuery
         {
-            get { return ServersToQuery; }
-            set { ServersToQuery = value; }
-        }
-
-        public static List<string> ServersToQuery
-        {
-            get
-            {
-                //_serversToQuery = new List<string> {"Herkules", "."};
-                
-                return _serversToQuery;
-            }
+            get { return _serversToQuery; }
             set { _serversToQuery = value; }
         }
+
+
     }
 }
