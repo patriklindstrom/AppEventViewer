@@ -9,12 +9,14 @@ using AppEventViewer.Models;
 using AppEventViewer.ServiceInterface;
 using ServiceStack.Mvc;
 using ServiceStack.ServiceClient.Web;
+using ServiceStack.ServiceInterface;
 
 namespace AppEventViewer.Controllers
 {
     public class EventsController : ControllerBase<CustomUserSession>
     {
 
+        JsonServiceClient ServiceClient = new JsonServiceClient("http://localhost:60176/api/");
         //public IEventRepository EventRepository; //injected by Func IOC
         //
         // GET: /Events/
@@ -25,25 +27,51 @@ namespace AppEventViewer.Controllers
         /// <seealso cref="EventReq"/>
         public ActionResult Index(EventReq eventReq)
         {
-            JsonServiceClient ServiceClient = new JsonServiceClient("http://localhost:60176/api/");//injected by Func IOC
+           
+                //injected by Func IOC
             ViewBag.Message = "Here is a list of all filtered events from all server nodes.";
             var eventRecListViewModel = new EventRecListViewModel();
-            var events = new Events {From = eventReq.From,To=eventReq.To};
+            var events = new Events {From = eventReq.From, To = eventReq.To};
             try
             {
                 var response = ServiceClient.Get(events);
+                //string respstatus;
+                //string respMsg;
+                //response.ResponseStatus(out respstatus, out respMsg);
+                //if (respstatus.Equals(String.Empty))
+                //{
+
+                    foreach (var ev in response.EventRecords)
+                    {
+                        var evViewR = new EventRec
+                        {
+                            Category = ev.Category,
+                            Server = ev.ComputerName,
+                            EventCode = ev.EventCode,
+                            EventType = ev.EventType,
+                            InsMessage = ev.InsertionStrings,
+                            Logfile = ev.Logfile,
+                            Msg = ev.Message,
+                            RecordNr = ev.RecordNumber,
+                            Source = ev.SourceName,
+                            Time = ev.TimeGenerated,
+                            Type = ev.Type
+                        };
+                        eventRecListViewModel.EventList.Add(evViewR);
+                    } 
+                //}
+                //else
+                //{
+                //    throw new ServiceResponseException("Problem with Event Service Responsstatus:" + responsStatus);
+                //}
+               
             }
             catch (WebServiceException exception)
             {
                 throw;
             }
-            finally
-            {
-
-            }
 
             return View(eventRecListViewModel);
-
         }
 
         //
@@ -132,6 +160,4 @@ namespace AppEventViewer.Controllers
             }
         }
     }
-
-
 }

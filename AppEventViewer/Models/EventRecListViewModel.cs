@@ -11,6 +11,11 @@ namespace AppEventViewer.Models
     {
         private List<EventRec> _eventList;
 
+        public EventRecListViewModel()
+        {
+            _eventList = new List<EventRec>();
+        }
+
         public List<EventRec> EventList
         {
             get { return _eventList; }
