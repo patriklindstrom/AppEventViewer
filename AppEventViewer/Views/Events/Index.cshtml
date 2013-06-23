@@ -5,4 +5,121 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>title</h2>
+<h2>All Filtered Events</h2>
+<div id="container">
+    <table  id="EventsTbl" border="0" cellpadding="0" cellspacing="0" class="pretty">
+        <thead>
+        <tr>
+            <th class="EvRName">
+               Category
+            </th>
+            <th class="EvRServer">
+              Server
+            </th>
+            <th class="EvREventCode">
+           EventCode
+            </th>
+            <th class="EvREventType">
+               EventType
+            </th>
+            <th class="EvRInsMessage">
+               InsMessage
+            </th>
+            <th class="EvRLogfile">
+               Logfile
+            </th>
+            <th class="EvRMsg">
+                Msg
+            </th>
+             <th class="EvRRecordNr">
+                RecordNr
+            </th>
+            <th class="EvRSource">
+              Source
+            </th>
+
+            <th class="EvRTime">
+               Time
+            </th>
+            <th class="EvRType">
+               Type
+            </th> 
+        </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.EventList)
+            {
+                <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category)
+                </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Server)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EventCode)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EventType)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.InsMessage)
+                    </td>
+
+                    <td>
+                     @Html.DisplayFor(modelItem => item.Logfile)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => item.Msg)
+                    </td>
+                     <td>
+                        @Html.DisplayFor(modelItem => item.RecordNr)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Source)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Time)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Type)
+                    </td>                  
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<script src="/Scripts/jquery-1.8.1.min.js" type="text/javascript"></script>
+<script src="/Scripts/jquery.dataTables.min.js" type="text/javascript"></script>
+<script src="/Scripts/ColReorder.min.js" type="text/javascript"></script>
+<script src="/Scripts/ColVis.min.js" type="text/javascript"></script>
+<script src="/Scripts/TableTools.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="/Scripts/showtable.js"></script>
+<script type="text/javascript" charset="utf-8">
+    /* Initialisation */
+    $(document).ready(function() {
+
+        function colDefFunds() {
+            return [
+                { "aTargets": ["EvRName"], "bVisible": true },
+                { "aTargets": ["EvRServer"], "bVisible": true },
+                { "aTargets": ["EvREventCode"], "bVisible": false },
+                { "aTargets": ["EvREventType"], "bVisible": false },
+                { "aTargets": ["EvRInsMessage"], "bVisible": true },
+                { "aTargets": ["EvRLogfile"], "bVisible": false },
+                { "aTargets": ["EvRMsg"], "bVisible": true },
+                { "aTargets": ["EvRRecordNr"], "bVisible": true },
+                { "aTargets": ["EvRSource"], "bVisible": true },
+                { "aTargets": ["EvRTime"], "bVisible": true },
+                { "aTargets": ["EvRType"], "bVisible": false }
+            ];
+        }
+
+        function notHideColFunds() {
+            return [0, 6];
+        }
+        ResultDataTablesInit('#EventsTbl', colDefFunds, notHideColFunds);
+        })
+</script>
