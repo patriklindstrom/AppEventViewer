@@ -9,50 +9,52 @@
 <div id="container">
     <table  id="EventsTbl" border="0" cellpadding="0" cellspacing="0" class="pretty">
         <thead>
-        <tr>
-            <th class="EvRCatergory">
-               Category
-            </th>
-            <th class="EvRServer">
-              Server
-            </th>
-            <th class="EvREventCode">
-           EventCode
-            </th>
-            <th class="EvREventType">
-               EventType
-            </th>
-            <th class="EvRInsMessage">
-               InsMessage
-            </th>
-            <th class="EvRLogfile">
-               Logfile
-            </th>
-            <th class="EvRMsg">
-                Msg
-            </th>
-             <th class="EvRRecordNr">
-                RecordNr
-            </th>
-            <th class="EvRSource">
-              Source
-            </th>
-
-            <th class="EvRTime">
+            <tr>
+           <th class="EvRTime">
                Time
             </th>
-            <th class="EvRType">
-               Type
-            </th> 
-        </tr>
+                <th class="EvRCatergory">
+                    Category
+                </th>
+                <th class="EvRServer">
+                    Server
+                </th>
+                <th class="EvREventCode">
+                    EventCode
+                </th>
+                <th class="EvREventType">
+                    EventType
+                </th>
+                <th class="EvRInsMessage">
+                    InsMessage
+                </th>
+                <th class="EvRLogfile">
+                    Logfile
+                </th>
+                <th class="EvRMsg">
+                    Msg
+                </th>
+                <th class="EvRRecordNr">
+                    RecordNr
+                </th>
+                <th class="EvRSource">
+                    Source
+                </th>
+                <th class="EvRType">
+                    Type
+                </th> 
+            </tr>
         </thead>
         <tbody>
             @foreach (var item in Model.EventList)
             {
                 <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Category)
-                </td>
+                                        <td>
+                        @Html.DisplayFor(modelItem => item.Time)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Category)
+                    </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Server)
                     </td>
@@ -67,12 +69,12 @@
                     </td>
 
                     <td>
-                     @Html.DisplayFor(modelItem => item.Logfile)
+                        @Html.DisplayFor(modelItem => item.Logfile)
                     </td>
                     <td>
                         @Html.DisplayFor(model => item.Msg)
                     </td>
-                     <td>
+                    <td>
                         @Html.DisplayFor(modelItem => item.RecordNr)
                     </td>
 
@@ -80,9 +82,7 @@
                         @Html.DisplayFor(modelItem => item.Source)
                     </td>
 
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Time)
-                    </td>
+
                     <td>
                         @Html.DisplayFor(modelItem => item.Type)
                     </td>                  

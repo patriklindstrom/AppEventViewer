@@ -59,9 +59,10 @@ namespace AppEventViewer.Repository
                     //Filter out all data that contains records that we are interested in.
                     foreach (var searchTerm in Config.FilterTerm)
                     {
-                        if (eventRec.Message.Contains(searchTerm) || eventRec.InsertionStrings.Contains(searchTerm))
+                        if (eventRec.SourceName.Contains(searchTerm) || eventRec.Message.Contains(searchTerm) || eventRec.InsertionStrings.Contains(searchTerm))
                         {
                             eventRecordList.Add(eventRec);
+                            break;
                         }
                     }
                 }

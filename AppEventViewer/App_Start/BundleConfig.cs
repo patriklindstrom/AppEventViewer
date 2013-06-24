@@ -51,7 +51,9 @@ namespace AppEventViewer.App_Start
             "~/Content/ColVis.css",
             "~/Content/reset-min.css",
             "~/Content/TableTools.css",
-            "~/Content/TableTools_JUI.css"));
+            "~/Content/TableTools_JUI.css",
+            "~/Content/content.css"
+            ));
 
 
             bundles.Add(new ScriptBundle("~/bundles/datatables").Include(
@@ -59,6 +61,7 @@ namespace AppEventViewer.App_Start
                         "~/Scripts/jquery.dataTables.js" ,
                         "~/Scripts/ColReorder.js",
                         "~/Scripts/ColVis.js",
+                       "~/Scripts/ZeroClipboard.js",
                        "~/Scripts/TableTools.min.js",
                         "~/Scripts/showTable.js" ,
                         "~/Scripts/Events.js"      

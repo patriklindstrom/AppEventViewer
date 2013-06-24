@@ -173,6 +173,7 @@
   <ItemGroup>
     <Content Include="Content\ColReorder.css" />
     <Content Include="Content\ColVis.css" />
+    <Content Include="Content\content.css" />
     <Content Include="Content\js\ss-validation.js" />
     <Content Include="Content\reset-min.css" />
     <Content Include="Content\TableTools.css" />
@@ -256,6 +257,7 @@
     <Content Include="Scripts\modernizr-2.5.3.js" />
     <Content Include="Scripts\showtable.js" />
     <Content Include="Scripts\TableTools.min.js" />
+    <Content Include="Scripts\ZeroClipboard.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

@@ -4,6 +4,7 @@
         alert("Whats up in Events.js document ready country?")
         function colDefFunds() {
             return [
+                { "aTargets": ["EvRTime"], "bVisible": true },
                 { "aTargets": ["EvRCatergory"], "bVisible": true },
                 { "aTargets": ["EvRServer"], "bVisible": true },
                 { "aTargets": ["EvREventCode"], "bVisible": false },
@@ -13,13 +14,12 @@
                 { "aTargets": ["EvRMsg"], "bVisible": true },
                 { "aTargets": ["EvRRecordNr"], "bVisible": true },
                 { "aTargets": ["EvRSource"], "bVisible": true },
-                { "aTargets": ["EvRTime"], "bVisible": true },
                 { "aTargets": ["EvRType"], "bVisible": false }
             ];
         }
 
         function notHideColFunds() {
-            return [6, 9];
+            return [0];
         }
         ResultDataTablesInit('#EventsTbl', colDefFunds, notHideColFunds);
     })
