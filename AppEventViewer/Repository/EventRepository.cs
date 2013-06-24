@@ -48,8 +48,9 @@ namespace AppEventViewer.Repository
             }
             List<IEventRecord> eventRecordList = new List<IEventRecord>();
 
+            //TODO break out this logic so it can be tested.
             // Here comes three nested list. Its for every server, for every event record check every searchTerm if ok then add it.
-
+            var searchTermList = Config.FilterTerm;
             foreach (var serv in Config.ServersToQuery)
             {
                 var mos = new ManagementObjectSearcher("\\\\" + serv + "\\root\\cimv2", wmiQuery);
@@ -57,7 +58,7 @@ namespace AppEventViewer.Repository
                 {
                     var eventRec = new EventRecord((ManagementObject) mo);
                     //Filter out all data that contains records that we are interested in.
-                    foreach (var searchTerm in Config.FilterTerm)
+                    foreach (var searchTerm in searchTermList)
                     {
                         if (eventRec.SourceName.Contains(searchTerm) || eventRec.Message.Contains(searchTerm) || eventRec.InsertionStrings.Contains(searchTerm))
                         {

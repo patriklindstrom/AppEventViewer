@@ -1,7 +1,7 @@
 ﻿
     /* Initialisation */
     $(document).ready(function() {
-        alert("Whats up in Events.js document ready country?")
+     
         function colDefFunds() {
             return [
                 { "aTargets": ["EvRTime"], "bVisible": true },
