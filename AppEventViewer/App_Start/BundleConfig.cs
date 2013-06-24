@@ -8,7 +8,7 @@ namespace AppEventViewer.App_Start
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js"));
+                        "~/Scripts/jquery-1.7.1.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
                         "~/Scripts/jquery-ui-{version}.js"));
@@ -46,7 +46,7 @@ namespace AppEventViewer.App_Start
 //<script src="/Scripts/TableTools.min.js" type="text/javascript"></script>
 //<script type="text/javascript" src="/Scripts/showtable.js"></script>
 
-            bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(
+            bundles.Add(new StyleBundle("~/Content/datatables/css").Include(
             "~/Content/ColReorder.css",
             "~/Content/ColVis.css",
             "~/Content/reset-min.css",
@@ -54,18 +54,18 @@ namespace AppEventViewer.App_Start
             "~/Content/TableTools_JUI.css"));
 
 
-            bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                                      "~/Scripts/jquery-dataTables.js" ,
+            bundles.Add(new ScriptBundle("~/bundles/datatables").Include(
+
+                        "~/Scripts/jquery.dataTables.js" ,
                         "~/Scripts/ColReorder.js",
                         "~/Scripts/ColVis.js",
-                        "~/Scripts/ColDataTables.js",
                        "~/Scripts/TableTools.min.js",
-                        "~/Scripts/showTable.js" 
-      
+                        "~/Scripts/showTable.js" ,
+                        "~/Scripts/Events.js"      
                       ));
 
 
-          //  BundleTable.EnableOptimizations = false;
+            BundleTable.EnableOptimizations = false;
 
         }
     }

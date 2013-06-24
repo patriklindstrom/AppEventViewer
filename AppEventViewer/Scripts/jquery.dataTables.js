@@ -59,7 +59,7 @@
 	var DataTable = function( oInit )
 	{
 		
-		
+	    alert("Whats up in heart of DataTable country?")
 		/**
 		 * Add a column to the list used for the table with default values
 		 *  @param {object} oSettings dataTables settings object

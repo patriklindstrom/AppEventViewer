@@ -42,7 +42,8 @@ function downLoadExcelUrl() {
 
 /* Main Mother */
 /* ajax api/sqlobjects?searchterm=select&server=Herkules&instance=Default&database=Default */
-function ResultDataTablesInit(tableDivId,colDefFn,colExcludeHide) {
+function ResultDataTablesInit(tableDivId, colDefFn, colExcludeHide) {
+    alert("Whats up in ResultDataTablesInit on border of DataTable?")
     var oTable = $(tableDivId).dataTable({
         "bProcessing": true,
         "bStateSave": true,

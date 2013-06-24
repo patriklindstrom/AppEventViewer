@@ -7,7 +7,7 @@
         <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
         <meta name="viewport" content="width=device-width" />
         @Styles.Render("~/Content/css")
- 
+         @Styles.Render("~/Content/datatables/css")
     </head>
     <body>
         <header>
@@ -17,6 +17,7 @@
                 </div>
                 <div class="float-right">
                     <section id="login">
+
                         Hello, <span class="username">@User.Identity.Name</span>!
                     </section>
                     <nav>
@@ -45,6 +46,7 @@
         </footer>
 
         @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/datatables")
         @ServiceStack.MiniProfiler.Profiler.RenderIncludes().AsRaw() 
         @RenderSection("scripts", required: false)
     </body>
