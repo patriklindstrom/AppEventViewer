@@ -50,7 +50,7 @@ namespace AppEventViewer.App_Start
             "~/Content/ColReorder.css",
             "~/Content/ColVis.css",
             "~/Content/reset-min.css",
-            "~/Content/TableTools.css",
+            "~/Content/TableTools.min.css",
             "~/Content/TableTools_JUI.css"));
 
 
