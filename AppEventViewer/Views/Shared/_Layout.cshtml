@@ -46,8 +46,9 @@
         </footer>
 
         @Scripts.Render("~/bundles/jquery")
+
         @Scripts.Render("~/bundles/datatables")
-        @ServiceStack.MiniProfiler.Profiler.RenderIncludes().AsRaw() 
+
         @RenderSection("scripts", required: false)
     </body>
 </html>
