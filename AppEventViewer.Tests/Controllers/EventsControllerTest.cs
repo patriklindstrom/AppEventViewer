@@ -20,7 +20,7 @@ namespace AppEventViewer.Tests.Controllers
         {
             //Arrange
             //Set up Funq IOS for Dependency injection
-            TestContainer.Register<IEventRepository>(new EventRepository_Mock());
+          //  TestContainer.Register<IEventRepository>(new EventRepository_Mock());
         }
 
         [TestMethod]
@@ -30,9 +30,10 @@ namespace AppEventViewer.Tests.Controllers
             EventsController controller = new EventsController();
   
            // var eventReq = new EventReq {From = "20130613154515", To = "20130614163022"};
-            var eventReq = new EventReq {From = "20130618202500", To = "20130619182551"};
-
-            var eventService = new EventService { Repository = TestContainer.Resolve<IEventRepository>() };
+          //  var eventReq = new EventReq {From = "20130618202500", To = "20130619182551"};
+            // TODO this test need better DTO that gives some data. Should SearchTerm be injected ?
+            var eventReq = new EventReq {  };
+         //   var eventService = new EventService { Repository = TestContainer.Resolve<IEventRepository>() };
  
             // Act
             ViewResult result = controller.Index(eventReq) as ViewResult;

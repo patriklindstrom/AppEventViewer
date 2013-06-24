@@ -15,8 +15,9 @@ namespace AppEventViewer.Controllers
 {
     public class EventsController : ControllerBase<CustomUserSession>
     {
-
-       public JsonServiceClient ServiceClient = new JsonServiceClient("http://localhost:60176/api/");
+       // public IAppConfig Config { get; set; } = //injected hopefully buy IOC
+      public JsonServiceClient ServiceClient = new JsonServiceClient("http://localhost:60176/api/");
+      //  public JsonServiceClient ServiceClient = new JsonServiceClient(Config.AbsoluteBaseUri);
         //public IEventRepository EventRepository; //injected by Func IOC
         //
         // GET: /Events/
@@ -54,7 +55,7 @@ namespace AppEventViewer.Controllers
                             Msg = ev.Message,
                             RecordNr = ev.RecordNumber,
                             Source = ev.SourceName,
-                            Time = ev.TimeGenerated,
+                            Time = ev.TimeGenerated.Substring(0, 8) + "T" + ev.TimeGenerated.Substring(8, 6),
                             Type = ev.Type
                         };
                         eventRecListViewModel.EventList.Add(evViewR);
