@@ -20,18 +20,25 @@ namespace AppEventViewer.Tests.Controllers
         {
             //Arrange
             //Set up Funq IOS for Dependency injection
+            TestContainer.Register<IEventRepository>(new EventRepository_Mock());
         }
 
         [TestMethod]
         public void Index()
         {
             // Arrange
-            EventsController controller = new EventsController(); 
+            EventsController controller = new EventsController();
+  
            // var eventReq = new EventReq {From = "20130613154515", To = "20130614163022"};
             var eventReq = new EventReq {From = "20130618202500", To = "20130619182551"};
+
+            var eventService = new EventService { Repository = TestContainer.Resolve<IEventRepository>() };
+ 
             // Act
             ViewResult result = controller.Index(eventReq) as ViewResult;
+
             // Assert
+ 
             Assert.AreEqual("Here is a list of all filtered events from all server nodes.", result.ViewBag.Message);
             Assert.IsNotNull(result, "Response from Eventservice is null");
             Assert.IsInstanceOfType(result.Model, typeof(IEventRecListViewModel), "Returns the wrong ViewModel");
