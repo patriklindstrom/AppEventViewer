@@ -37,6 +37,36 @@ namespace AppEventViewer.App_Start
                         "~/Content/themes/base/jquery.ui.datepicker.css",
                         "~/Content/themes/base/jquery.ui.progressbar.css",
                         "~/Content/themes/base/jquery.ui.theme.css"));
+
+            // DataTables 
+//            <script src="/Scripts/jquery-1.7.1.min.js" type="text/javascript"></script> ok
+//<script src="/Scripts/jquery.dataTables.min.js" type="text/javascript"></script>
+//<script src="/Scripts/ColReorder.min.js" type="text/javascript"></script>
+//<script src="/Scripts/ColVis.min.js" type="text/javascript"></script>
+//<script src="/Scripts/TableTools.min.js" type="text/javascript"></script>
+//<script type="text/javascript" src="/Scripts/showtable.js"></script>
+
+            bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(
+            "~/Content/ColReorder.css",
+            "~/Content/ColVis.css",
+            "~/Content/reset-min.css",
+            "~/Content/TableTools.css",
+            "~/Content/TableTools_JUI.css"));
+
+
+            bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
+                                      "~/Scripts/jquery-dataTables.js" ,
+                        "~/Scripts/ColReorder.js",
+                        "~/Scripts/ColVis.js",
+                        "~/Scripts/ColDataTables.js",
+                       "~/Scripts/TableTools.min.js",
+                        "~/Scripts/showTable.js" 
+      
+                      ));
+
+
+          //  BundleTable.EnableOptimizations = false;
+
         }
     }
 }

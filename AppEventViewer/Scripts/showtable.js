@@ -76,7 +76,7 @@ function ResultDataTablesInit(tableDivId,colDefFn,colExcludeHide) {
 							"sButtonClassHover": "DTTT_button_xls_hover",
 							"sToolTip": "Save whole table as Excelsheet",
 							"fnClick": function (nButton, oConfig) {
-								window.open(downLoadExcelUrl(), "DownloadFundsAsExcel");
+								window.open(downLoadExcelUrl(), "DownloadEventssAsExcel");
 								return false;
 							}
 						}

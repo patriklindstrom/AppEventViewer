@@ -10,7 +10,7 @@
     <table  id="EventsTbl" border="0" cellpadding="0" cellspacing="0" class="pretty">
         <thead>
         <tr>
-            <th class="EvRName">
+            <th class="EvRCatergory">
                Category
             </th>
             <th class="EvRServer">
@@ -91,7 +91,7 @@
         </tbody>
     </table>
 </div>
-<script src="/Scripts/jquery-1.8.1.min.js" type="text/javascript"></script>
+<script src="/Scripts/jquery-1.7.1.min.js" type="text/javascript"></script>
 <script src="/Scripts/jquery.dataTables.min.js" type="text/javascript"></script>
 <script src="/Scripts/ColReorder.min.js" type="text/javascript"></script>
 <script src="/Scripts/ColVis.min.js" type="text/javascript"></script>
@@ -103,7 +103,7 @@
 
         function colDefFunds() {
             return [
-                { "aTargets": ["EvRName"], "bVisible": true },
+                { "aTargets": ["EvRCatergory"], "bVisible": true },
                 { "aTargets": ["EvRServer"], "bVisible": true },
                 { "aTargets": ["EvREventCode"], "bVisible": false },
                 { "aTargets": ["EvREventType"], "bVisible": false },
@@ -118,7 +118,7 @@
         }
 
         function notHideColFunds() {
-            return [0, 6];
+            return [6, 9];
         }
         ResultDataTablesInit('#EventsTbl', colDefFunds, notHideColFunds);
         })
