@@ -159,6 +159,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="App_Start\WebServiceExamples.cs" />
+    <Compile Include="Controllers\JobQueueController.cs" />
     <Compile Include="Models\EventRecListViewModel.cs" />
     <Compile Include="Controllers\EventsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -290,6 +291,7 @@
     <Content Include="packages.config" />
     <None Include="readme_ServiceStack.txt" />
     <Content Include="Views\Events\Index.cshtml" />
+    <Content Include="Views\JobQueue\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

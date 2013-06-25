@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using AppEventViewer.App_Start;
 using AppEventViewer.Models;
 using AppEventViewer.ServiceInterface;
+using ServiceStack.Configuration;
 using ServiceStack.Mvc;
 using ServiceStack.ServiceClient.Web;
 using ServiceStack.ServiceInterface;
@@ -16,7 +17,7 @@ namespace AppEventViewer.Controllers
     public class EventsController : ControllerBase<CustomUserSession>
     {
        // public IAppConfig Config { get; set; } = //injected hopefully buy IOC
-      public JsonServiceClient ServiceClient = new JsonServiceClient("http://localhost:60176/api/");
+    //  public JsonServiceClient ServiceClient = new JsonServiceClient("http://localhost:60176/api/");
       //  public JsonServiceClient ServiceClient = new JsonServiceClient(Config.AbsoluteBaseUri);
         //public IEventRepository EventRepository; //injected by Func IOC
         //
@@ -28,7 +29,11 @@ namespace AppEventViewer.Controllers
         /// <seealso cref="EventReq"/>
         public ActionResult Index(EventReq eventReq)
         {
-           
+            // Todo all this must be moved to the a config of IAppConfig and injected with Funq IOC instead
+            var appSettings = new AppSettings();
+            string baseApiUrl = appSettings.Get("BaseApiUrl", "http://localhost:80/api/");
+             JsonServiceClient ServiceClient = new JsonServiceClient(baseApiUrl);
+
                 //injected by Func IOC
             ViewBag.Message = "Here is a list of all filtered events from all server nodes.";
             var eventRecListViewModel = new EventRecListViewModel();
