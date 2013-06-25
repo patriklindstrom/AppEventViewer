@@ -38,13 +38,13 @@ namespace AppEventViewer.App_Start
                         "~/Content/themes/base/jquery.ui.progressbar.css",
                         "~/Content/themes/base/jquery.ui.theme.css"));
 
-            // DataTables 
-//            <script src="/Scripts/jquery-1.7.1.min.js" type="text/javascript"></script> ok
-//<script src="/Scripts/jquery.dataTables.min.js" type="text/javascript"></script>
-//<script src="/Scripts/ColReorder.min.js" type="text/javascript"></script>
-//<script src="/Scripts/ColVis.min.js" type="text/javascript"></script>
-//<script src="/Scripts/TableTools.min.js" type="text/javascript"></script>
-//<script type="text/javascript" src="/Scripts/showtable.js"></script>
+// DataTables 
+// <script src="/Scripts/jquery-1.7.1.min.js" type="text/javascript"></script> ok
+// <script src="/Scripts/jquery.dataTables.min.js" type="text/javascript"></script>
+// <script src="/Scripts/ColReorder.min.js" type="text/javascript"></script>
+// <script src="/Scripts/ColVis.min.js" type="text/javascript"></script>
+// <script src="/Scripts/TableTools.min.js" type="text/javascript"></script>
+// <script type="text/javascript" src="/Scripts/showtable.js"></script>
 
             bundles.Add(new StyleBundle("~/Content/datatables/css").Include(
             "~/Content/ColReorder.css",
