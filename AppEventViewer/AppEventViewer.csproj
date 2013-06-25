@@ -236,6 +236,7 @@
     <Content Include="default.htm" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <None Include="Properties\PublishProfiles\LocalFileToAccTest.pubxml" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="jqunback-1.51.min.js" />
     <Content Include="Scripts\ColReorder.js" />
