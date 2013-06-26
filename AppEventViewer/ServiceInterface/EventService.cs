@@ -73,7 +73,7 @@ namespace AppEventViewer.ServiceInterface
         public object Get(Events request)
         {
             //throw new NotImplementedException("This is a test");
-            string fromTime = request.From ?? DateTime.Now.AddHours(-3).ToString(Global_Const.DATE_FORMAT);
+            string fromTime = request.From ?? DateTime.Now.AddHours(-1).ToString(Global_Const.DATE_FORMAT);
             DateTime outFromTime = DateTime.ParseExact(fromTime, Global_Const.DATE_FORMAT,
                                                        System.Globalization.CultureInfo.InvariantCulture);
             string toTime = request.To ?? DateTime.Now.ToString(Global_Const.DATE_FORMAT);
