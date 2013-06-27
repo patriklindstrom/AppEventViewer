@@ -35,6 +35,7 @@ namespace AppEventViewer.Models
         public string Source { get; set; }
         public string Time { get; set; }
         public string Type { get; set; }
+        public string SearchTermNr { get; set; }
     }
     /// <summary>
     /// A DTO class that stores the request parameters for the datetime from and to

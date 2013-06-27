@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Management;
 using AppEventViewer;
@@ -51,6 +52,7 @@ namespace AppEventViewer.Repository
             //TODO break out this logic so it can be tested.
             // Here comes three nested list. Its for every server, for every event record check every searchTerm if ok then add it.
             var searchTermList = Config.FilterTerm;
+            bool multiSearch = (searchTermList.Count() > 1);
             foreach (var serv in Config.ServersToQuery)
             {
                 var mos = new ManagementObjectSearcher("\\\\" + serv + "\\root\\cimv2", wmiQuery);
@@ -58,14 +60,18 @@ namespace AppEventViewer.Repository
                 {
                     var eventRec = new EventRecord((ManagementObject) mo);
                     //Filter out all data that contains records that we are interested in.
-                    foreach (var searchTerm in searchTermList)
+                    for (int index = 0; index < searchTermList.Count; index++)
                     {
-                        if (eventRec.SourceName.Contains(searchTerm) || eventRec.Message.Contains(searchTerm) || eventRec.InsertionStrings.Contains(searchTerm))
+                        var searchTerm = searchTermList[index];
+                        if (eventRec.SourceName.Contains(searchTerm) || eventRec.Message.Contains(searchTerm) ||
+                            eventRec.InsertionStrings.Contains(searchTerm))
                         {
-                            eventRecordList.Add(eventRec);
-                            break;
-                        }
+                        
+                        eventRec.SearchTerm = "Word_" + index.ToString(CultureInfo.InvariantCulture);
+                        eventRecordList.Add(eventRec);
+                        break;
                     }
+                }
                 }
 
                 eventRecMergedList = (List<IEventRecord>) eventRecMergedList.Concat(eventRecordList).ToList();

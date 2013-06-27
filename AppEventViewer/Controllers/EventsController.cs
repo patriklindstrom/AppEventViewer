@@ -61,7 +61,8 @@ namespace AppEventViewer.Controllers
                             RecordNr = ev.RecordNumber,
                             Source = ev.SourceName,
                             Time = ev.TimeGenerated.Substring(0, 8) + "T" + ev.TimeGenerated.Substring(8, 6),
-                            Type = ev.Type
+                            Type = ev.Type,
+                            SearchTermNr = ev.SearchTerm
                         };
                         eventRecListViewModel.EventList.Add(evViewR);
                     } 

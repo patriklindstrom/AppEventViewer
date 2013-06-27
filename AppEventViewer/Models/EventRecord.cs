@@ -21,6 +21,8 @@ namespace AppEventViewer.Models
         string TimeGenerated { get; set; }
        // string TimeWritten { get; set; }
         string Type { get; set; }
+
+        string SearchTerm { get; set; }
     }
 
     public class EventRecord : IEventRecord
@@ -48,7 +50,7 @@ namespace AppEventViewer.Models
                 var strList = (String[]) vmi["InsertionStrings"];
                 foreach (var insString in strList)
                 {
-                    this.InsertionStrings += insString;
+                    this.InsertionStrings  += " " + insString ;
                 }
             }
             else
@@ -69,5 +71,7 @@ namespace AppEventViewer.Models
         public string TimeGenerated { get; set; }
       //  public string TimeWritten { get; set; }
         public string Type { get; set; }
+        public string SearchTerm { get; set; }
+
     }
 }

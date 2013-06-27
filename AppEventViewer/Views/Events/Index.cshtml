@@ -48,7 +48,7 @@
         <tbody>
             @foreach (var item in Model.EventList)
             {
-                <tr>
+                <tr class="@item.SearchTermNr">
                                         <td>
                         @Html.DisplayFor(modelItem => item.Time)
                     </td>

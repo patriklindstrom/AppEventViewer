@@ -83,7 +83,19 @@ html[xmlns] .dataTables_wrapper {
 	height: 1%;
 }
 
-
+/*
+ * SearchTerm styles
+ */
+tr.Word_1{color: #754B07;}
+tr.Word_2{color: #0008EB;}
+tr.Word_3
+{
+    color: #00CC99;
+}
+tr.Word_3
+{
+    color: #990000;
+}
 /*
  * Table styles
  */
