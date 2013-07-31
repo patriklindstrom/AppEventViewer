@@ -14,7 +14,7 @@ namespace AppEventViewer.ServiceInterface
   
     //Define Request and Response DTOs
 
-    // TODO: fix check that from is less then to
+    // TODO: fix check that from is less then to at make it snappy
     /// <summary>
     /// The Request DTO for the Get EventRecordList DTO
     /// </summary>
