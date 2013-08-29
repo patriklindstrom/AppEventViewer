@@ -23,11 +23,13 @@ namespace AppEventViewer.Controllers
         //
         // GET: /Events/
         /// <summary>
-        /// Gets an optional from and to show the repositories list of log events. The main get methods. Shows list of all events
+        /// Gets an optional from and to show the repositories list of log events. The main get methods. Shows list of all events. 
+        /// EventReqModelBinder translates the parameters and httpcontext and make a good EventReq object
         /// </summary>
         /// <param name="eventReq">A class for parameters they are strings but represent from to dates for the log events</param>
         /// <seealso cref="EventReq"/>
-        public ActionResult Index(EventReq eventReq)
+        /// <seealso cref="EventReqModelBinder"/>
+        public ActionResult Index([ModelBinder(typeof(EventReqModelBinder))]EventReq eventReq)
         {
             // Todo all this must be moved to the a config of IAppConfig and injected with Funq IOC instead
             var appSettings = new AppSettings();

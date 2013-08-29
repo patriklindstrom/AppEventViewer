@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Web.Mvc;
+using AppEventViewer.App_Start;
 
 namespace AppEventViewer.Models
 {
@@ -54,5 +57,45 @@ namespace AppEventViewer.Models
         /// </summary>
         /// <value>The value should be able to parse as a date time</value>
         public string To { get; set; }
+    }
+
+    public class EventReqModelBinder : IModelBinder
+    {
+        private EventReq _defaultReq ;
+        private EventReq _eventReq;
+        public EventReqModelBinder()
+        {
+            _defaultReq = new EventReq() { To = DateTime.Now.ToString(Global_Const.DATE_FORMAT), From = DateTime.Now.AddHours(-1).ToString(Global_Const.DATE_FORMAT) };
+        }
+        public object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
+        {
+            if (bindingContext.ModelType != typeof(EventReq))
+            {
+                return _defaultReq;
+            }
+
+            ValueProviderResult val = bindingContext.ValueProvider.GetValue("from");
+            if (val == null)
+            {
+                return _defaultReq;
+            }
+            string key = val.RawValue as string;
+            if (key == null)
+            {
+                bindingContext.ModelState.AddModelError(
+                    bindingContext.ModelName, "Wrong value type");
+                return _defaultReq;
+            }
+           
+            if (_defaultReq !=null )
+            {
+                bindingContext.Model = _defaultReq;
+                return _defaultReq;
+            }
+
+            bindingContext.ModelState.AddModelError(
+                bindingContext.ModelName, "Cannot convert value to EventReq");
+            return _defaultReq;
+        }
     }
 }
