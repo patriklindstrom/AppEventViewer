@@ -67,7 +67,7 @@ namespace AppEventViewer.Models
         private EventReq _eventReq;
         public EventReqModelBinder()
         {
-            _defaultReq = new EventReq() { To = DateTime.Now.ToString(Global_Const.DATE_FORMAT), From = DateTime.Now.AddHours(-1).ToString(Global_Const.DATE_FORMAT) };
+            _defaultReq = new EventReq() { To = DateTime.Now.ToString(Global_Const.DATE_FORMAT), From = DateTime.Now.AddHours(-6).ToString(Global_Const.DATE_FORMAT) };
         }
         public object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
         {
@@ -91,8 +91,10 @@ namespace AppEventViewer.Models
             else
             {
                 valueTo = valTo.AttemptedValue;
-            }                    
-            var valueReq = new EventReq() { To = valueTo, From = valueFrom };
+            }        
+            
+            // if from tom Time is given in sortable format with T in middle remove it. 
+            var valueReq = new EventReq() { To = valueTo.Replace("T", String.Empty), From = valueFrom.Replace("T", String.Empty) };
             return valueReq;
         }
     }

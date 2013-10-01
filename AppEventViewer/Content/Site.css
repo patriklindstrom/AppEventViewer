@@ -203,7 +203,32 @@ ul#menu {
             color: #333;
             text-decoration: none;
         }
+        /* time-menu
+----------------------------------------------------------*/
+ul#time-menu {
+    font-size: 1.3em;
+    font-weight: 600;
+    margin: 0 0 5px;
+    padding: 0;
+    text-align: right;
+}
 
+    ul#time-menu li {
+        display: inline;
+        list-style: none;
+        padding-left: 15px;
+    }
+
+        ul#time-menu li a {
+            background: none;
+            color: #999;
+            text-decoration: none;
+        }
+
+        ul#time-menu li a:hover {
+            color: #333;
+            text-decoration: none;
+        }
 
 /* page elements
 ----------------------------------------------------------*/
@@ -652,6 +677,21 @@ tr.pager td {
             padding: 0;
         }
 
+         /* time-menu */
+    nav {
+        margin-bottom: 5px;
+    }
+
+    ul#time-menu {
+        margin: 0;
+        padding: 0;
+        text-align: center;
+    }
+
+        ul#time-menu li {
+            margin: 0;
+            padding: 0;
+        }
 
     /* main layout
     ----------------------------------------------------------*/

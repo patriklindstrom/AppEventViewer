@@ -82,7 +82,60 @@ namespace AppEventViewer.Controllers
 
             return View(eventRecListViewModel);
         }
+        public ActionResult Lasthours(int hours)
+        {
+            // Todo all this must be moved to the a config of IAppConfig and injected with Funq IOC instead
+            var appSettings = new AppSettings();
+           var dynamicEventReq = new EventReq() { To = DateTime.Now.ToString(Global_Const.DATE_FORMAT), From = DateTime.Now.AddHours(-1 * hours).ToString(Global_Const.DATE_FORMAT) };
+            string baseApiUrl = appSettings.Get("BaseApiUrl", "http://localhost:80/api/");
+            JsonServiceClient ServiceClient = new JsonServiceClient(baseApiUrl);
 
+            //injected by Func IOC
+            ViewBag.Message = "Here is a list of all filtered events from all server nodes.";
+            var eventRecListViewModel = new EventRecListViewModel();
+            var events = new Events { From = dynamicEventReq.From, To = dynamicEventReq.To };
+            try
+            {
+                var response = ServiceClient.Get(events);
+                //string respstatus;
+                //string respMsg;
+                //response.ResponseStatus(out respstatus, out respMsg);
+                //if (respstatus.Equals(String.Empty))
+                //{
+
+                foreach (var ev in response.EventRecords)
+                {
+                    var evViewR = new EventRec
+                    {
+                        Category = ev.Category,
+                        Server = ev.ComputerName,
+                        EventCode = ev.EventCode,
+                        EventType = ev.EventType,
+                        InsMessage = ev.InsertionStrings,
+                        Logfile = ev.Logfile,
+                        Msg = ev.Message,
+                        RecordNr = ev.RecordNumber,
+                        Source = ev.SourceName,
+                        Time = ev.TimeGenerated.Substring(0, 8) + "T" + ev.TimeGenerated.Substring(8, 6),
+                        Type = ev.Type,
+                        SearchTermNr = ev.SearchTerm
+                    };
+                    eventRecListViewModel.EventList.Add(evViewR);
+                }
+                //}
+                //else
+                //{
+                //    throw new ServiceResponseException("Problem with Event Service Responsstatus:" + responsStatus);
+                //}
+
+            }
+            catch (WebServiceException exception)
+            {
+                throw;
+            }
+
+            return View("Index",eventRecListViewModel);
+        }
         //
         // GET: /Events/Details/5
 

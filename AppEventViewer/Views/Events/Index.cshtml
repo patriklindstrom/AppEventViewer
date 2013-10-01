@@ -6,6 +6,17 @@
 }
 
 <h2>All Filtered Events</h2>
+  <div>
+<nav>
+    <ul id="time-menu">
+        <li>@Html.ActionLink("Last Hour", "Lasthours", "Events",new{hours=1},null)</li>
+        <li>@Html.ActionLink("Last six hours", "Lasthours", "Events",new{hours=6},null)</li>
+        <li>@Html.ActionLink("Last 30 hours", "Lasthours", "Events",new{hours=30},null)</li>
+        <li>@Html.ActionLink("Specific timespan", "Index", "Events",new{from="20130901T124530",to="20131001T155901"},null)</li>
+    </ul>
+</nav>
+</div>
+<div></div>
 <div id="container">
     <table  id="EventsTbl" border="0" cellpadding="0" cellspacing="0" class="pretty">
         <thead>
