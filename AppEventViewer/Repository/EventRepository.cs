@@ -56,7 +56,8 @@ namespace AppEventViewer.Repository
             foreach (var serv in Config.ServersToQuery)
             {
                 var mos = new ManagementObjectSearcher("\\\\" + serv + "\\root\\cimv2", wmiQuery);
-                foreach (var mo in mos.Get())
+                var mossos = mos.Get();
+                foreach (var mo in mossos)
                 {
                     var eventRec = new EventRecord((ManagementObject) mo);
                     //Filter out all data that contains records that we are interested in.

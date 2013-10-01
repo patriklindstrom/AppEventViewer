@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Web.Mvc;
 using AppEventViewer.App_Start;
+using ServiceStack.Text;
 
 namespace AppEventViewer.Models
 {
@@ -73,29 +75,25 @@ namespace AppEventViewer.Models
             {
                 return _defaultReq;
             }
+            ValueProviderResult valFrom = bindingContext.ValueProvider.GetValue("from");
+            if (valFrom == null)
+            {
+                return _defaultReq;
+            }
+            var valueFrom = valFrom.AttemptedValue ?? _defaultReq.From;
+            ValueProviderResult valTo = bindingContext.ValueProvider.GetValue("to");
+            string valueTo = String.Empty;
+            if (valTo == null)
 
-            ValueProviderResult val = bindingContext.ValueProvider.GetValue("from");
-            if (val == null)
             {
-                return _defaultReq;
+                valueTo = _defaultReq.To;
             }
-            string key = val.RawValue as string;
-            if (key == null)
+            else
             {
-                bindingContext.ModelState.AddModelError(
-                    bindingContext.ModelName, "Wrong value type");
-                return _defaultReq;
-            }
-           
-            if (_defaultReq !=null )
-            {
-                bindingContext.Model = _defaultReq;
-                return _defaultReq;
-            }
-
-            bindingContext.ModelState.AddModelError(
-                bindingContext.ModelName, "Cannot convert value to EventReq");
-            return _defaultReq;
+                valueTo = valTo.AttemptedValue;
+            }                    
+            var valueReq = new EventReq() { To = valueTo, From = valueFrom };
+            return valueReq;
         }
     }
 }
