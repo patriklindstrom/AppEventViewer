@@ -29,7 +29,7 @@ namespace AppEventViewer.Tests.Controllers
             // Arrange
             EventsController controller = new EventsController();
   
-            var eventReq = new EventReq {From = "20130613154515", To = "20130614163022"};
+            var eventReq = new EventReq {From = DateTime.Parse("20130613154515"), To = DateTime.Parse("20130614163022")};
           //  var eventReq = new EventReq {From = "20130618202500", To = "20130619182551"};
             // TODO this test need better DTO that gives some data. Should SearchTerm be injected ?
           //  var eventReq = new EventReq {  };

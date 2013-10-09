@@ -5,6 +5,7 @@ using AppEventViewer.App_Start;
 using AppEventViewer.Models;
 using AppEventViewer.Repository;
 using AppEventViewer.ServiceInterface;
+using Newtonsoft.Json;
 using ServiceStack.ServiceHost;
 using ServiceStack.ServiceInterface;
 using ServiceStack.ServiceInterface.ServiceModel;
@@ -35,8 +36,8 @@ namespace AppEventViewer.ServiceInterface
             Description =
                 "Date and time from where the logs should be taken. The string must in yyyyMMddHHmmss eg 20130618102955 format to  be parsed as a DateTime. If null then defaults to - 1 hour"
             ,
-            ParameterType = "path", DataType = "string", IsRequired = false)]
-        public string From { get; set; }
+            ParameterType = "path", DataType = "datetime", IsRequired = false)]
+        public DateTime From { get; set; }
         /// <summary>
         /// Date and time To in a pair of from where the logs should be taken
         /// </summary>
@@ -45,8 +46,8 @@ namespace AppEventViewer.ServiceInterface
             Description =
                 "Date and time to what where has to be bigger then the from value and The string must be The string must in yyyyMMddHHmmss eg 20130618102955 parsed as a DateTime. if null then defaults to now"
             ,
-            ParameterType = "path", DataType = "string", IsRequired = false)]
-        public string To { get; set; }
+            ParameterType = "path", DataType = "datetime", IsRequired = false)]
+        public DateTime To { get; set; }
     }
 
     /// <summary>
@@ -72,13 +73,8 @@ namespace AppEventViewer.ServiceInterface
         public IEventRepository Repository { get; set; } //                   
         public object Get(Events request)
         {
-            //throw new NotImplementedException("This is a test");
-            string fromTime = request.From ?? DateTime.Now.AddHours(-1).ToString(Global_Const.DATE_FORMAT);
-            DateTime outFromTime = DateTime.ParseExact(fromTime, Global_Const.DATE_FORMAT,
-                                                       System.Globalization.CultureInfo.InvariantCulture);
-            string toTime = request.To ?? DateTime.Now.ToString(Global_Const.DATE_FORMAT);
-            DateTime outToTime = DateTime.ParseExact(toTime, Global_Const.DATE_FORMAT,
-                                                     System.Globalization.CultureInfo.InvariantCulture);
+            DateTime outFromTime = request.From;         
+            DateTime outToTime =  request.To;
             var returnList =  Repository.GetByTimeFilter(outFromTime, outToTime, Global_Const.MAXGETROWS, Global_Const.TIMEOUT_S);
             var eventRecListResp = new EventRecordListResponse();
             eventRecListResp.EventRecords = returnList;

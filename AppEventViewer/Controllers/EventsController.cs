@@ -39,6 +39,7 @@ namespace AppEventViewer.Controllers
                 //injected by Func IOC
             ViewBag.Message = "Here is a list of all filtered events from all server nodes.";
             var eventRecListViewModel = new EventRecListViewModel();
+            //Events from to datetime 
             var events = new Events {From = eventReq.From, To = eventReq.To};
             try
             {
@@ -86,7 +87,7 @@ namespace AppEventViewer.Controllers
         {
             // Todo all this must be moved to the a config of IAppConfig and injected with Funq IOC instead
             var appSettings = new AppSettings();
-           var dynamicEventReq = new EventReq() { To = DateTime.Now.ToString(Global_Const.DATE_FORMAT), From = DateTime.Now.AddHours(-1 * hours).ToString(Global_Const.DATE_FORMAT) };
+           var dynamicEventReq = new EventReq() { To = DateTime.Now, From = DateTime.Now.AddHours(-1 * hours) };
             string baseApiUrl = appSettings.Get("BaseApiUrl", "http://localhost:80/api/");
             JsonServiceClient ServiceClient = new JsonServiceClient(baseApiUrl);
 
@@ -102,7 +103,7 @@ namespace AppEventViewer.Controllers
                 //response.ResponseStatus(out respstatus, out respMsg);
                 //if (respstatus.Equals(String.Empty))
                 //{
-
+                var foo = "fum";
                 foreach (var ev in response.EventRecords)
                 {
                     var evViewR = new EventRec

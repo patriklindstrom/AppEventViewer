@@ -53,12 +53,12 @@ namespace AppEventViewer.Models
         /// Get the from date and time for log events 
         /// </summary>
         /// <value>The value should be able to parse as a date time</value>
-        public string From { get; set; }
+        public DateTime From { get; set; }
         /// <summary>
         /// Get the to in a from-to date and time for log events 
         /// </summary>
         /// <value>The value should be able to parse as a date time</value>
-        public string To { get; set; }
+        public DateTime To { get; set; }
     }
 
     public class EventReqModelBinder : IModelBinder
@@ -67,7 +67,7 @@ namespace AppEventViewer.Models
         private EventReq _eventReq;
         public EventReqModelBinder()
         {
-            _defaultReq = new EventReq() { To = DateTime.Now.ToString(Global_Const.DATE_FORMAT), From = DateTime.Now.AddHours(-6).ToString(Global_Const.DATE_FORMAT) };
+            _defaultReq = new EventReq() { To = DateTime.Now, From = DateTime.Now.AddHours(-6) };
         }
         public object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
         {
@@ -80,21 +80,19 @@ namespace AppEventViewer.Models
             {
                 return _defaultReq;
             }
-            var valueFrom = valFrom.AttemptedValue ?? _defaultReq.From;
+            string sValFrom = (string) valFrom.AttemptedValue;
+            DateTime dValFrom;
+            DateTime dValueFrom;
+            dValueFrom = DateTime.TryParse(sValFrom, out dValFrom) ? dValFrom : _defaultReq.From;
+          
             ValueProviderResult valTo = bindingContext.ValueProvider.GetValue("to");
-            string valueTo = String.Empty;
-            if (valTo == null)
-
-            {
-                valueTo = _defaultReq.To;
-            }
-            else
-            {
-                valueTo = valTo.AttemptedValue;
-            }        
-            
+            string sValTo = (string)valFrom.AttemptedValue;
+            DateTime dValTo;
+            DateTime dValueTo;
+            dValueTo = DateTime.TryParse(sValTo, out dValTo) ? dValTo : _defaultReq.From;
+                 
             // if from tom Time is given in sortable format with T in middle remove it. 
-            var valueReq = new EventReq() { To = valueTo.Replace("T", String.Empty), From = valueFrom.Replace("T", String.Empty) };
+            var valueReq = new EventReq() { To = dValueTo, From = dValueFrom };
             return valueReq;
         }
     }
