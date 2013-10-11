@@ -40,7 +40,8 @@ namespace AppEventViewer.Controllers
             ViewBag.Message = "Here is a list of all filtered events from all server nodes.";
             var eventRecListViewModel = new EventRecListViewModel();
             //Events from to datetime 
-            var events = new Events {From = eventReq.From, To = eventReq.To};
+            //var events = new Events {From = eventReq.From, To = eventReq.To};
+            var events = new Events { From = "20130101111213", To = "20130101111216" };
             try
             {
                 var response = ServiceClient.Get(events);
@@ -94,7 +95,7 @@ namespace AppEventViewer.Controllers
             //injected by Func IOC
             ViewBag.Message = "Here is a list of all filtered events from all server nodes.";
             var eventRecListViewModel = new EventRecListViewModel();
-            var events = new Events { From = dynamicEventReq.From, To = dynamicEventReq.To };
+            var events = new Events { From = dynamicEventReq.From.ToString(), To = dynamicEventReq.To.ToString() };
             try
             {
                 var response = ServiceClient.Get(events);

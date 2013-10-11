@@ -29,7 +29,7 @@ namespace AppEventViewer.Tests
                 //Set up the Service I want to Test
                 var eventService = new EventService { Repository = TestContainer.Resolve<IEventRepository>() };
                 DateTime testFromDate = DateTime.Now.AddHours(-1);//.ToString(Global_Const.DATE_FORMAT);
-                var testEvents = new Events {From = testFromDate};
+                var testEvents = new Events {From = testFromDate.ToString()};
                 //Act
                 // Call on the Service
                 EventRecordListResponse response = (EventRecordListResponse) eventService.Get(testEvents);

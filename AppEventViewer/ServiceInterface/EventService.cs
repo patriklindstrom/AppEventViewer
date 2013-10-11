@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Web;
 using AppEventViewer.App_Start;
 using AppEventViewer.Models;
@@ -36,8 +37,8 @@ namespace AppEventViewer.ServiceInterface
             Description =
                 "Date and time from where the logs should be taken. The string must in yyyyMMddHHmmss eg 20130618102955 format to  be parsed as a DateTime. If null then defaults to - 1 hour"
             ,
-            ParameterType = "path", DataType = "datetime", IsRequired = false)]
-        public DateTime From { get; set; }
+            ParameterType = "path", DataType = "string", IsRequired = false)]
+        public string From { get; set; }
         /// <summary>
         /// Date and time To in a pair of from where the logs should be taken
         /// </summary>
@@ -46,8 +47,8 @@ namespace AppEventViewer.ServiceInterface
             Description =
                 "Date and time to what where has to be bigger then the from value and The string must be The string must in yyyyMMddHHmmss eg 20130618102955 parsed as a DateTime. if null then defaults to now"
             ,
-            ParameterType = "path", DataType = "datetime", IsRequired = false)]
-        public DateTime To { get; set; }
+            ParameterType = "path", DataType = "string", IsRequired = false)]
+        public string To { get; set; }
     }
 
     /// <summary>
@@ -73,11 +74,10 @@ namespace AppEventViewer.ServiceInterface
         public IEventRepository Repository { get; set; } //                   
         public object Get(Events request)
         {
-            DateTime outFromTime = request.From;         
-            DateTime outToTime =  request.To;
+            DateTime outFromTime = DateTime.Parse(request.From);
+            DateTime outToTime = DateTime.Parse(request.To);
             var returnList =  Repository.GetByTimeFilter(outFromTime, outToTime, Global_Const.MAXGETROWS, Global_Const.TIMEOUT_S);
-            var eventRecListResp = new EventRecordListResponse();
-            eventRecListResp.EventRecords = returnList;
+            var eventRecListResp = new EventRecordListResponse {EventRecords = returnList};
             return eventRecListResp;
         }
     }
