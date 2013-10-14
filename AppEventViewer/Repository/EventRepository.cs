@@ -31,7 +31,9 @@ namespace AppEventViewer.Repository
         public List<IEventRecord> GetByTimeFilter(DateTime fromTime, DateTime toTime, int maxRows, int timeOutSec)
         {
             // DateTime fromTime = DateTime.Now.AddHours(-1*lag);
+          //  string strFromTime = String.Format(Global_Const.DATE_FORMAT_STR, fromTime) + ".000000+000";
             string strFromTime = String.Format(Global_Const.DATE_FORMAT_STR, fromTime) + ".000000+000";
+            
             string strToTime = String.Format(Global_Const.DATE_FORMAT_STR, toTime) + ".000000+000";
             string wmiQuery =
                 String.Format(
