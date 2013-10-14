@@ -35,7 +35,7 @@ namespace AppEventViewer.ServiceInterface
             Description =
                 "Date and time from where the logs should be taken. The string must in yyyyMMddHHmmss eg 20130618102955 format to  be parsed as a DateTime. If null then defaults to - 1 hour"
             ,
-            ParameterType = "path", DataType = "string", IsRequired = true)]
+            ParameterType = "path", DataType = "dateTime", IsRequired = true)]
         public string From { get; set; }
         /// <summary>
         /// Date and time To in a pair of from where the logs should be taken
@@ -45,7 +45,7 @@ namespace AppEventViewer.ServiceInterface
             Description =
                 "Date and time to what where has to be bigger then the from value and The string must be The string must in yyyyMMddHHmmss eg 20130618102955 parsed as a DateTime. if null then defaults to now"
             ,
-            ParameterType = "path", DataType = "string", IsRequired = true)]
+            ParameterType = "path", DataType = "dateTime", IsRequired = true)]
         public string To { get; set; }
     }
 
