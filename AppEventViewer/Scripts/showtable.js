@@ -51,7 +51,7 @@ function ResultDataTablesInit(tableDivId, colDefFn, colExcludeHide) {
         "aoColumnDefs": colDefFn(),
         "oColVis": {
             "bRestore": true,
-            "buttonText":"Hide",
+            "buttonText":"Hide-Show",
             "sToolTip": "Show/Hide Columns"
             ,
             "aiExclude": colExcludeHide()
