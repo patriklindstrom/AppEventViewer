@@ -1,15 +1,24 @@
 ﻿
     /* Initialisation */
     $(document).ready(function() {
-       
+        function localizeDateStr (date_to_convert_str) 
+        { var dateToConvert = new Date(date_to_convert_str);
+        var date =  new Date();
+        var hours = dateToConvert.getHours + (date.getTimezoneOffset() / 60);
+        dateToConvert.setHours(hours);
+            // return dateToConvert.toString(); 
+            return data;
+        }
         function colDefFunds() {
             return [
-                  { "aTargets": ["EvRTime"], "bVisible": true },
+                  { "aTargets": ["EvRTime"], "bVisible": true, "mRender": function(data, type, row) {
+                      return localizeDateStr(data);
+                  } },
                 { "aTargets": ["EvRCatergory"], "bVisible": false },
                 { "aTargets": ["EvRServer"], "bVisible": true },
                 { "aTargets": ["EvREventCode"], "bVisible": false },
                 { "aTargets": ["EvREventType"], "bVisible": false },
-                { "aTargets": ["EvRInsMessage"], "bVisible": true, "mRender": function (data, type, row) { return "foo"; } },
+                { "aTargets": ["EvRInsMessage"], "bVisible": true },
                 { "aTargets": ["EvRLogfile"], "bVisible": false },
                 { "aTargets": ["EvRMsg"], "bVisible": false },
                 { "aTargets": ["EvRRecordNr"], "bVisible": false },
