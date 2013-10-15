@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Management;
@@ -18,7 +19,7 @@ namespace AppEventViewer.Models
         string Message { get; set; }
         string RecordNumber { get; set; }
         string SourceName { get; set; }
-        string TimeGenerated { get; set; }
+        DateTime TimeGenerated { get; set; }
        // string TimeWritten { get; set; }
         string Type { get; set; }
 
@@ -42,8 +43,15 @@ namespace AppEventViewer.Models
             Message = (vmi["Message"] != null) ? vmi["Message"].ToString() : String.Empty;
             RecordNumber = (vmi["RecordNumber"] != null) ? vmi["RecordNumber"].ToString() : String.Empty;
             SourceName = (vmi["SourceName"] != null) ? vmi["SourceName"].ToString() : String.Empty;
-            TimeGenerated = (vmi["TimeGenerated"] != null) ? vmi["TimeGenerated"].ToString() : String.Empty;
-          //  TimeWritten = (vmi["TimeWritten"] != null) ? vmi["TimeWritten"].ToString() : String.Empty;
+            //TimeGenerated 
+            string timeWrittenStr = (vmi["TimeWritten"] != null) ? vmi["TimeWritten"].ToString() : String.Empty;
+           // CultureInfo provider = CultureInfo.InvariantCulture;
+
+            DateTime outDateTime = ManagementDateTimeConverter.ToDateTime(timeWrittenStr); // DateTime.ParseExact(timeWrittenStr, "yyyyMMddHHmmss.ffffff-zzz", provider);
+ 
+            TimeGenerated = outDateTime;
+
+            //  TimeWritten = (vmi["TimeWritten"] != null) ? vmi["TimeWritten"].ToString() : String.Empty;
             Type = (vmi["Type"] != null) ? vmi["Type"].ToString() : String.Empty;
             if (vmi["InsertionStrings"] != null )
             {
@@ -68,7 +76,7 @@ namespace AppEventViewer.Models
         public string Message { get; set; }
         public string RecordNumber { get; set; }
         public string SourceName { get; set; }
-        public string TimeGenerated { get; set; }
+        public DateTime TimeGenerated { get; set; }
       //  public string TimeWritten { get; set; }
         public string Type { get; set; }
         public string SearchTerm { get; set; }

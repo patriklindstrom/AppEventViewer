@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization.Formatters;
 using AppEventViewer.App_Start;
 using AppEventViewer.Models;
 using AppEventViewer.Repository;
@@ -38,20 +39,20 @@ namespace AppEventViewer.Tests
             //Act
             List<IEventRecord> eventList = testRep.GetByTimeFilter(fromTime, toTime, Global_Const.MAXGETROWS, Global_Const.TIMEOUT_S);
             //Check that it is sorted
-            string prevEv = String.Empty;
-            int isBigger = 0;
+            DateTime prevEv =DateTime.UtcNow;
+            bool isBigger =false;
             foreach (EventRecord ev in eventList)
             {
-                isBigger = String.Compare(ev.TimeGenerated, prevEv, System.StringComparison.Ordinal);
+                isBigger = (ev.TimeGenerated !=prevEv);  // String.Compare(ev.TimeGenerated, prevEv, System.StringComparison.Ordinal);
                 prevEv = ev.TimeGenerated;
-                if (isBigger < 0)
+                if (isBigger )
                 {
                     break;
                 }
             }
             //Assert
             Assert.IsTrue(eventList.Any(), "There should be some events last day");
-            Assert.IsTrue(isBigger >= 0, "Sorting sucks");
+            Assert.IsTrue(isBigger, "Sorting sucks");
         }
         [TestMethod]
         public void Test_that_GetByTimeFilter_Returns_a_sorted_list_when_No_server()

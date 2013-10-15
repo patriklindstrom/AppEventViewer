@@ -12,6 +12,7 @@ using ServiceStack.Mvc;
 using ServiceStack.ServiceClient.Web;
 using ServiceStack.ServiceInterface;
 
+
 namespace AppEventViewer.Controllers
 {
     public class EventsController : ControllerBase<CustomUserSession>
@@ -62,7 +63,7 @@ namespace AppEventViewer.Controllers
                             Msg = ev.Message,
                             RecordNr = ev.RecordNumber,
                             Source = ev.SourceName,
-                            Time = ev.TimeGenerated,      //.Substring(0, 8) + "T" + ev.TimeGenerated.Substring(8, 6),
+                            Time = ev.TimeGenerated.ToString("u"),      //.Substring(0, 8) + "T" + ev.TimeGenerated.Substring(8, 6),
                             Type = ev.Type,
                             SearchTermNr = ev.SearchTerm
                         };
@@ -116,7 +117,7 @@ namespace AppEventViewer.Controllers
                         Msg = ev.Message,
                         RecordNr = ev.RecordNumber,
                         Source = ev.SourceName,
-                        Time = ev.TimeGenerated.Substring(0, 8) + "T" + ev.TimeGenerated.Substring(8, 6),
+                        Time = ev.TimeGenerated.ToString("u"),
                         Type = ev.Type,
                         SearchTermNr = ev.SearchTerm
                     };

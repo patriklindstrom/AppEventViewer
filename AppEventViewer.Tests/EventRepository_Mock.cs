@@ -34,7 +34,8 @@ namespace AppEventViewer.Tests
                         @"The directory jabberjowitch specified for caching compressed content C:\Users\Patrik\AppData\Local\Temp\iisexpress\IIS Temporary Compressed Files\Clr4IntegratedAppPool is invalid. Static compression is being disabled.",
                     RecordNumber = "460172",
                     SourceName = "IIS Express",
-                    TimeGenerated = "20130619182551.000000-000",
+
+                    TimeGenerated = DateTime.Now, //"20130619182551.000000-000",
                    // TimeWritten = "20130619182551.000000-000",
                     Type = "Varning"
                 };
@@ -52,7 +53,7 @@ namespace AppEventViewer.Tests
                     Message = String.Empty,
                     RecordNumber = "460171",
                     SourceName = "application",
-                    TimeGenerated = "20130619182521.000000-000",
+                    TimeGenerated = DateTime.Now, //"20130619182521.000000-000",
                    // TimeWritten = "20130619182521.000000-000",
                     Type = "Information"
                 };
@@ -75,7 +76,7 @@ namespace AppEventViewer.Tests
                 A.CallTo(() => erN.RecordNumber).Returns((460175+rnd.Next(1,200)).ToString());
                 A.CallTo(() => erN.SourceName).Returns("application");  
                 A.CallTo(() => erN.Message).Returns("jabberjowitch is not a project");
-                A.CallTo(() => erN.TimeGenerated).Returns("20130619182521.000000-" + rnd.Next(111,999).ToString());
+                A.CallTo(() => erN.TimeGenerated).Returns(DateTime.Now);// + rnd.Next(111,999).ToString());
                 eventRecordList.Add(erN);
             }
 

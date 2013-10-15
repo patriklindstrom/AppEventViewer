@@ -133,15 +133,15 @@ namespace AppEventViewer.Tests
             }
 
             var eventRecMergedList = EventRecordList.Concat(EventRecordList2).OrderBy(e => e.TimeGenerated);
-            string prevEv = String.Empty;
-            int isBigger = 0;
+            DateTime prevEv = DateTime.UtcNow;
+            bool isBigger = false;
             foreach (EventRecord ev in eventRecMergedList)
             {
                 Debug.WriteLine(ev.TimeGenerated);
                 Debug.WriteLine(ev.RecordNumber);
-                isBigger = String.Compare(ev.TimeGenerated, prevEv, System.StringComparison.Ordinal);
+                isBigger = (ev.TimeGenerated != prevEv); 
                 prevEv = ev.TimeGenerated;
-                if (isBigger < 0)
+                if (isBigger )
                 {
                     break;
                 }
@@ -149,7 +149,7 @@ namespace AppEventViewer.Tests
 
             //Assert
             Assert.IsTrue(eventRecMergedList.Any(), "There should be some events last day");
-            Assert.IsTrue(isBigger >= 0, "Sorting sucks");
+            Assert.IsTrue(isBigger, "Sorting sucks");
         }
     }
 }
