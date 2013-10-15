@@ -32,9 +32,11 @@ namespace AppEventViewer.Repository
         {
             // DateTime fromTime = DateTime.Now.AddHours(-1*lag);
           //  string strFromTime = String.Format(Global_Const.DATE_FORMAT_STR, fromTime) + ".000000+000";
-            string strFromTime = String.Format(Global_Const.DATE_FORMAT_STR, fromTime) + ".000000+000";
-            
-            string strToTime = String.Format(Global_Const.DATE_FORMAT_STR, toTime) + ".000000+000";
+
+            // string dmtfDateTime =  ManagementDateTimeConverter.ToDmtfDateTime(DateTime.Now);
+            string strFromTime = ManagementDateTimeConverter.ToDmtfDateTime(fromTime);// DateTime outDateTime   String.Format(Global_Const.DATE_FORMAT_STR, fromTime) + ".000000+000";
+
+            string strToTime = ManagementDateTimeConverter.ToDmtfDateTime(toTime);// String.Format(Global_Const.DATE_FORMAT_STR, toTime) + ".000000+000";
             string wmiQuery =
                 String.Format(
                     "SELECT * FROM Win32_NTLogEvent WHERE Logfile = '{0}' AND TimeGenerated >= '{1}' AND TimeGenerated <= '{2}' ",

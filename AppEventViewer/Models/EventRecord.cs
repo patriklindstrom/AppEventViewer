@@ -46,10 +46,13 @@ namespace AppEventViewer.Models
             //TimeGenerated 
             string timeWrittenStr = (vmi["TimeWritten"] != null) ? vmi["TimeWritten"].ToString() : String.Empty;
            // CultureInfo provider = CultureInfo.InvariantCulture;
-
+            
             DateTime outDateTime = ManagementDateTimeConverter.ToDateTime(timeWrittenStr); // DateTime.ParseExact(timeWrittenStr, "yyyyMMddHHmmss.ffffff-zzz", provider);
- 
+            DateTime.SpecifyKind(outDateTime, DateTimeKind.Utc);
+
+
             TimeGenerated = outDateTime;
+                        // .ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fffK");
 
             //  TimeWritten = (vmi["TimeWritten"] != null) ? vmi["TimeWritten"].ToString() : String.Empty;
             Type = (vmi["Type"] != null) ? vmi["Type"].ToString() : String.Empty;

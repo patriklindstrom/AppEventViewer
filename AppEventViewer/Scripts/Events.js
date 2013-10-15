@@ -7,12 +7,12 @@
         var hours = dateToConvert.getHours + (date.getTimezoneOffset() / 60);
         dateToConvert.setHours(hours);
             // return dateToConvert.toString(); 
-            return data;
+            return dateToConvert;
         }
         function colDefFunds() {
             return [
                   { "aTargets": ["EvRTime"], "bVisible": true, "mRender": function(data, type, row) {
-                      return localizeDateStr(data);
+                      return data;
                   } },
                 { "aTargets": ["EvRCatergory"], "bVisible": false },
                 { "aTargets": ["EvRServer"], "bVisible": true },
