@@ -3,7 +3,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8" />
-        <title>@ViewBag.Title - Onefund AppeventerViewer</title>
+        <title>@ViewBag.Title - Log Batch & Queue View</title>
         <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
         <meta name="viewport" content="width=device-width" />
         @Styles.Render("~/Content/css")
@@ -13,7 +13,7 @@
         <header>
             <div class="content-wrapper">
                 <div class="float-left">
-                    <p class="site-title">@Html.ActionLink("Application Event log viewer", "Index", "Home")</p>
+                    <p class="site-title">@Html.ActionLink("LBQ - Log Batch & Queue view", "Index", "Home")</p>
                 </div>
                 <div class="float-right">
                     <section id="login">
@@ -23,7 +23,7 @@
                     <nav>
                         <ul id="menu">
                             <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                            <li>@Html.ActionLink("Events", "Index", "Events")</li>
+                            <li>@Html.ActionLink("Event Log", "Index", "Events")</li>
                               <li>@Html.ActionLink("Job queue", "Index", "JobQueue")</li>
                             <li>@Html.ActionLink("About", "About", "Home")</li>
                             <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
@@ -41,7 +41,7 @@
         <footer>
             <div class="content-wrapper">
                 <div class="float-left">
-                    <p>&copy; @DateTime.Now.Year - OneFund AppeventViewer</p> 
+                    <p>&copy; @DateTime.Now.Year - Log Batch & Queue</p> 
                 </div>
             </div>
         </footer>
