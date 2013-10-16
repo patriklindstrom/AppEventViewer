@@ -10,14 +10,14 @@ namespace AppEventViewer.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.Message = "Modify this template to jump-start your ASP.NET MVC application.";
+            ViewBag.Message = "After installing LBQ there are som configuration that has to be made.";
 
             return View();
         }
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your app description page.";
+            ViewBag.Message = "Behind the app.";
 
             return View();
         }
