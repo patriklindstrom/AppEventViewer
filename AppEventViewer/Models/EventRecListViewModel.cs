@@ -9,6 +9,8 @@ namespace AppEventViewer.Models
 {
     public interface IEventRecListViewModel
     {
+        DateTime TimeGenerated { get; }
+    
         List<EventRec> EventList { get; }
     }
 
@@ -19,7 +21,10 @@ namespace AppEventViewer.Models
         public EventRecListViewModel()
         {
             _eventList = new List<EventRec>();
+            TimeGenerated = DateTime.Now;
         }
+
+        public DateTime TimeGenerated { get; private set; }
 
         public List<EventRec> EventList
         {
