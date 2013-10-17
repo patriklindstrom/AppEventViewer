@@ -6,6 +6,7 @@ using System.Management;
 using AppEventViewer;
 using AppEventViewer.App_Start;
 using AppEventViewer.Models;
+using Microsoft.Ajax.Utilities;
 
 namespace AppEventViewer.Repository
 {
@@ -56,6 +57,7 @@ namespace AppEventViewer.Repository
             //TODO break out this logic so it can be tested.
             // Here comes three nested list. Its for every server, for every event record check every searchTerm if ok then add it.
             var searchTermList = Config.FilterTerm;
+            int sTCount=searchTermList.Count;
             bool multiSearch = (searchTermList.Count() > 1);
             foreach (var serv in Config.ServersToQuery)
             {
@@ -65,7 +67,7 @@ namespace AppEventViewer.Repository
                 {
                     var eventRec = new EventRecord((ManagementObject) mo);
                     //Filter out all data that contains records that we are interested in.
-                    for (int index = 0; index < searchTermList.Count; index++)
+                    for (int index = 0; index < sTCount; index++)
                     {
                         var searchTerm = searchTermList[index];
                         if (eventRec.SourceName.Contains(searchTerm) || eventRec.Message.Contains(searchTerm) ||
@@ -76,13 +78,16 @@ namespace AppEventViewer.Repository
                         eventRecordList.Add(eventRec);
                         break;
                     }
-                }
+                    }
                 }
 
                 eventRecMergedList = (List<IEventRecord>) eventRecMergedList.Concat(eventRecordList).ToList();
+                eventRecordList.Clear();
             }
             //var eventRecMergedList = EventRecordList.Concat(EventRecordList2).OrderBy(e => e.TimeGenerated);
-            List<IEventRecord> returnEventList = new List<IEventRecord>(eventRecMergedList.OrderByDescending(e => e.TimeGenerated));
+            List<IEventRecord> returnEventList;
+            List<IEventRecord> foo = new List<IEventRecord>(eventRecMergedList.OrderByDescending(e => e.TimeGenerated));
+            returnEventList = foo.ToList();
             return returnEventList;
         }
     }

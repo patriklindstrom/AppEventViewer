@@ -37,24 +37,25 @@ namespace AppEventViewer.Tests
             DateTime fromTime = DateTime.Now.AddDays(-1);
             DateTime toTime = DateTime.Now;
             //Act
-            IOrderedEnumerable<IEventRecord> eventList = testRep.GetByTimeFilter(fromTime, toTime, Global_Const.MAXGETROWS, Global_Const.TIMEOUT_S);
-            //Check that it is sorted descending
-            DateTime prevEv =DateTime.UtcNow;
-            bool isBigger =false;
+            List<IEventRecord> eventList = testRep.GetByTimeFilter(fromTime, toTime, Global_Const.MAXGETROWS, Global_Const.TIMEOUT_S);
+            //Check that it is sorted descending. Previous should always be bigger if sorted descending
+            DateTime prevEv =DateTime.MaxValue;
+            bool isNewBigger =false;
             int i = 0;
             foreach (EventRecord ev in eventList)
             {
-                isBigger = (ev.TimeGenerated < prevEv);  // String.Compare(ev.TimeGenerated, prevEv, System.StringComparison.Ordinal);
+                var newEventRec = ev.TimeGenerated;
+                isNewBigger = (newEventRec > prevEv);  //The new item in the list should never be bigger.
                 i ++;
-                if (isBigger )
+                if (isNewBigger)
                 {
                     break;
                 }
-                prevEv = ev.TimeGenerated;
+                prevEv = newEventRec;
             }
             //Assert
             Assert.IsTrue(eventList.Any(), "There should be some events last day");
-            Assert.IsFalse(isBigger, "Sorting sucks");
+            Assert.IsFalse(isNewBigger, "Sorting sucks. Is not sorted descending");
         }
         [TestMethod]
         public void Test_that_GetByTimeFilter_Returns_a_sorted_list_when_No_server()
@@ -66,7 +67,7 @@ namespace AppEventViewer.Tests
             DateTime fromTime = DateTime.Now.AddDays(-1);
             DateTime toTime = DateTime.Now;
             //Act
-            IOrderedEnumerable<IEventRecord> eventList = testRep.GetByTimeFilter(fromTime, toTime, Global_Const.MAXGETROWS, Global_Const.TIMEOUT_S);          
+            List<IEventRecord> eventList = testRep.GetByTimeFilter(fromTime, toTime, Global_Const.MAXGETROWS, Global_Const.TIMEOUT_S);          
             //Assert List should be empty
             Assert.IsFalse(eventList.Any(), "If no servers then no list");
 
@@ -82,7 +83,7 @@ namespace AppEventViewer.Tests
             DateTime fromTime = DateTime.Now.AddDays(-1);
             DateTime toTime = DateTime.Now;
             //Act
-            IOrderedEnumerable<IEventRecord> eventList = testRep.GetByTimeFilter(fromTime, toTime, Global_Const.MAXGETROWS, Global_Const.TIMEOUT_S);
+            List<IEventRecord> eventList = testRep.GetByTimeFilter(fromTime, toTime, Global_Const.MAXGETROWS, Global_Const.TIMEOUT_S);
             // See  [ExpectedException at top
         }
     }
