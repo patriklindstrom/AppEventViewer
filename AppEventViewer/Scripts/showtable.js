@@ -47,8 +47,10 @@ function ResultDataTablesInit(tableDivId, colDefFn, colExcludeHide) {
     var oTable = $(tableDivId).dataTable({
         "bProcessing": true,
         "bStateSave": true,
+        "bSort": true,
         "sDom": 'T<"clear">RC<"clear">lfrtiSp',
         "aoColumnDefs": colDefFn(),
+        "aaSorting": [[0, "desc"]],
         "oColVis": {
             "bRestore": true,
             "buttonText":"Hide-Show",
