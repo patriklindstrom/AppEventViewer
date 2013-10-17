@@ -24,7 +24,7 @@ namespace AppEventViewer.Tests
             }
             [TestMethod]
             public void Test_Get_EventService_Returns_Response()
-            {
+            {//TODO this Test sucks
                 //Arrange
                 //Set up the Service I want to Test
                 var eventService = new EventService { Repository = TestContainer.Resolve<IEventRepository>() };

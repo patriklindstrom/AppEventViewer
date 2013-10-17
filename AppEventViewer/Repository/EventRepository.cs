@@ -85,9 +85,7 @@ namespace AppEventViewer.Repository
                 eventRecordList.Clear();
             }
             //var eventRecMergedList = EventRecordList.Concat(EventRecordList2).OrderBy(e => e.TimeGenerated);
-            List<IEventRecord> returnEventList;
-            List<IEventRecord> foo = new List<IEventRecord>(eventRecMergedList.OrderByDescending(e => e.TimeGenerated));
-            returnEventList = foo.ToList();
+            List<IEventRecord> returnEventList = new List<IEventRecord>(eventRecMergedList.OrderByDescending(e => e.TimeGenerated));
             return returnEventList;
         }
     }

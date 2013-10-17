@@ -28,7 +28,7 @@ namespace AppEventViewer.Models
 
     public class EventRecord : IEventRecord
     {
-        private string[] _insertionStrings;
+        
 
         public EventRecord(ManagementObject vmi)
         {
