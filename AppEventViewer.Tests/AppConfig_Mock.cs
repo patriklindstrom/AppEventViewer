@@ -21,6 +21,8 @@ namespace AppEventViewer.Tests
             get { return new List<string> {System.Environment.MachineName, "."}; }
         }
 
+        public string SqlStatement { get; private set; }
+        public List<string> SqlHeaderList { get; private set; }
     }
 
     public class AppConfig_Null_Mock : IAppConfig
@@ -37,6 +39,9 @@ namespace AppEventViewer.Tests
         {
             get { return null; }
         }
+
+        public string SqlStatement { get; private set; }
+        public List<string> SqlHeaderList { get; private set; }
     }
 
     public class AppConfig_ZeroServer_Mock : IAppConfig
@@ -51,5 +56,8 @@ namespace AppEventViewer.Tests
         {
             get { return new List<string> {};  }
         }
+
+        public string SqlStatement { get; private set; }
+        public List<string> SqlHeaderList { get; private set; }
     }
 }

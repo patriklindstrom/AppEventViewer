@@ -29,8 +29,11 @@ namespace AppEventViewer.App_Start
    public interface IAppConfig
     {
        List<string> FilterTerm { get; }
-        List<string> ServersToQuery { get;  }
+       List<string> ServersToQuery { get;  }
+       string SqlStatement { get; }
+       List<string> SqlHeaderList { get; }
     }
+
     public   class AppConfig : IAppConfig
     {         
         public AppConfig()     
@@ -39,11 +42,13 @@ namespace AppEventViewer.App_Start
             string baseApiUrl = appSettings.Get("BaseApiUrl","http://localhost:80/api/");
             _serversToQuery = (List<string>)appSettings.GetList("ListOfServers");
             _filterTerm = (List<string>)appSettings.GetList("FilterTermList");
+           // _sqlStatement = (SqlStatement) appSettings.
             //Fake two servers by talke localhost computer name and . that is local computer
             // _serversToQuery = new List<string> { System.Environment.MachineName, "." };
         }
         private static List<string> _serversToQuery;
         private static List<string> _filterTerm;
+        private static List<string> _sqlStatement;
         public  List<string> FilterTerm
         {
             get { return _filterTerm; }
@@ -52,6 +57,17 @@ namespace AppEventViewer.App_Start
         public List<string> ServersToQuery
         {
             get { return _serversToQuery; }
+        }
+
+        public String SqlStatement
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+      
+        public  List<string> SqlHeaderList
+        {
+            get { throw new NotImplementedException(); }
         }
     }
 }
