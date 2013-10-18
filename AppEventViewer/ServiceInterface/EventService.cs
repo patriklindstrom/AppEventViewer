@@ -20,11 +20,11 @@ namespace AppEventViewer.ServiceInterface
     /// </summary>
     [Api("Service Description")]
     [Route("/Events/", "GET", Summary = @"A sorted list from all server nodes with events of from last hour ",
-        Notes = "What server nodes and the filter of events are hardcoded")]
+        Notes = "What server nodes and the filter of events are in webconfig appsettings")]
     [Route("/Events/{from}", "GET", Summary = @"A sorted list from all server nodes with events of ",
-        Notes = "What server nodes and the filter of events are hardcoded")]
+        Notes = "What server nodes and the filter of events are in webconfig appsettings")]
     [Route("/Events/{from}/{to}", "GET", Summary = @"A sorted list from all server nodes with events of ",
-    Notes = "What server nodes and the filter of events are hardcoded")]
+    Notes = "What server nodes and the filter of events are in webconfig appsettings")]
     public class Events : IReturn<EventRecordListResponse>
     {
         /// <summary>
