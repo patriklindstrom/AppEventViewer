@@ -74,9 +74,8 @@ namespace AppEventViewer.ServiceInterface
             DateTime outToTime = DateTime.ParseExact(toTime, Global_Const.DATE_FORMAT,
                                                      System.Globalization.CultureInfo.InvariantCulture);
             var returnList = Repository.GetByTimeFilter(outFromTime, outToTime, Global_Const.MAXGETROWS, Global_Const.TIMEOUT_S);
-            var eventRecListResp = new EventRecordListResponse();
-            eventRecListResp.EventRecords = returnList;
-            return eventRecListResp;
+            var sql1RecListResp = new Sql1RecordListResponse {IsSql1Records = returnList};
+            return sql1RecListResp;
         }
     }
 }

@@ -7,7 +7,7 @@ namespace AppEventViewer.Models
 {
     /*
       <!-- Select statement with params @FromTime AND @ToTime -->
-    <add key="SQLStatement1" value="SELECT  msdb.dbo.agent_datetime(h.run_date,h.run_time) as run_time,run_duration,run_status,   
+    <add key="SQLStatement1" value="SELECT  msdb.dbo.agent_datetime(h.run_date,h.run_time) as run_time,run_duration,run_status  
          ,h.server,s.name as jobname,  h.step_name,  h.message
         FROM  msdb..sysjobs as s
           join  msdb..sysjobhistory as h ON h.job_id = s.job_id

@@ -8,7 +8,7 @@ using AppEventViewer.Models;
 
 namespace AppEventViewer.Repository
 {
-    public class Sql1Repository : ISqlRepository
+    public class Sql1Repository : ISql1Repository
     {
         public IAppConfig Config { get; set; } //injected hopefully buy IOC
 
@@ -77,7 +77,7 @@ namespace AppEventViewer.Repository
         }
     }
 
-    public interface ISqlRepository
+    public interface ISql1Repository
     {
         IAppConfig Config { get; set; }
         List<ISql1Record> GetByTimeFilter(DateTime fromTime, DateTime toTime, int maxRows, int timeOutSec);
