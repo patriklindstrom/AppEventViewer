@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Linq;
 using System.Configuration;
 using System.Collections.Generic;
@@ -29,18 +30,26 @@ namespace AppEventViewer.App_Start
    public interface IAppConfig
     {
        List<string> FilterTerm { get; }
-       List<string> ServersToQuery { get;  }
-       string SqlStatement { get; }
+       string Sql1Statement { get; }
        List<string> SqlHeaderList { get; }
+       IEnumerable SQL1ServersToQuery { get; }
     }
 
     public   class AppConfig : IAppConfig
-    {         
+    {
+        private const String DEFAULT_SQL_STATEMENT =
+            @"SELECT  msdb.dbo.agent_datetime(h.run_date,h.run_time) as run_time,run_duration,run_status,h.server,s.name as jobname,  h.step_name,  h.message
+        FROM  msdb..sysjobs as s
+          join  msdb..sysjobhistory as h ON h.job_id = s.job_id
+          where  msdb.dbo.agent_datetime(h.run_date,h.run_time)between @FromTime AND @ToTime
+          Order by  h.run_date desc, h.run_time desc; ";
         public AppConfig()     
         {
             var  appSettings = new AppSettings();
             string baseApiUrl = appSettings.Get("BaseApiUrl","http://localhost:80/api/");
             _serversToQuery = (List<string>)appSettings.GetList("ListOfServers");
+            _sql1Statement = appSettings.Get("SQLStatement1", DEFAULT_SQL_STATEMENT);
+            _sql1HeaderList = (List<string>)appSettings.GetList("SQLStatement1");
             _filterTerm = (List<string>)appSettings.GetList("FilterTermList");
            // _sqlStatement = (SqlStatement) appSettings.
             //Fake two servers by talke localhost computer name and . that is local computer
@@ -48,26 +57,32 @@ namespace AppEventViewer.App_Start
         }
         private static List<string> _serversToQuery;
         private static List<string> _filterTerm;
-        private static List<string> _sqlStatement;
+        private static string _sql1Statement;
+        private static List<string> _sql1HeaderList;
+        private IEnumerable _sql1ServersToQuery;
+
         public  List<string> FilterTerm
         {
             get { return _filterTerm; }
         }
 
-        public List<string> ServersToQuery
-        {
-            get { return _serversToQuery; }
-        }
 
-        public String SqlStatement
+
+        public String Sql1Statement
         {
-            get { throw new NotImplementedException(); }
+            get { return _sql1Statement; }
         }
 
       
         public  List<string> SqlHeaderList
         {
-            get { throw new NotImplementedException(); }
+            get { return _serversToQuery; }
+        }
+
+        public IEnumerable SQL1ServersToQuery
+        {
+            get { return _serversToQuery; }
+            
         }
     }
 }
